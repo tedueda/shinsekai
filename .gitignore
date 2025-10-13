@@ -1,0 +1,4 @@
+# Ignore large binary assets
+public/movie/
+releases/
+*.zip
