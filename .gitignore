@@ -2,3 +2,4 @@
 public/movie/
 releases/
 *.zip
+xserver_upload/movie/*.mp4

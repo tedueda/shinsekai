@@ -104,6 +104,10 @@
     <link rel="dns-prefetch" href="//www.google.com">
     <link rel="dns-prefetch" href="//www.youtube.com">
     <link rel="dns-prefetch" href="//images.unsplash.com">
+    <!-- 外部動画ホストへの事前接続で初回再生を高速化 -->
+    <link rel="dns-prefetch" href="//test.studioq.co.jp">
+    <link rel="preconnect" href="https://test.studioq.co.jp" crossorigin>
+    <link rel="preload" as="video" href="https://test.studioq.co.jp/wp-content/uploads/2025/08/KUROKI.mp4" crossorigin>
     
     
     <!-- ファビコン設定 -->
@@ -155,7 +159,19 @@
             border-color: #00c2a8;
             box-shadow: 0 0 0 3px rgba(0, 194, 168, 0.15);
         }
+        /* ハニーポット（スパム対策用の非表示フィールド） */
+        .hp-field {
+            position: absolute;
+            left: -9999px;
+            width: 1px;
+            height: 1px;
+            opacity: 0;
+            pointer-events: none;
+        }
     </style>
+    
+    <!-- Google reCAPTCHA v3 -->
+    <script src="https://www.google.com/recaptcha/api.js?render=6LcWv_srAAAAAOC4p5xFd2tQRMZRnRW_AbHoHVTV"></script>
 </head>
 <body>
     <!-- スキップナビゲーション（アクセシビリティ向上） -->
@@ -310,7 +326,7 @@
         <div class="container">
             <div class="studio-intro-container">
                 <div class="video-wrapper">
-                    <div class="video-thumbnail" data-video-url="movie/KUROKI.mp4" aria-label="スタジオQ紹介動画">
+                    <div class="video-thumbnail" data-video-url="https://test.studioq.co.jp/wp-content/uploads/2025/08/KUROKI.mp4" data-preload="eager" aria-label="スタジオQ紹介動画">
                         <img src="images/kuroki.JPG" alt="Studio Q 4Kグリーンスクリーン撮影風景" loading="lazy">
                         <div class="play-button">
                             <i class="fas fa-play"></i>
@@ -329,7 +345,7 @@
             
             <div class="video-wrapper">
                 <div class="video-item">
-                    <div class="latest-video-thumbnail" data-video-url="movie/music.pv4.mp4">
+                    <div class="latest-video-thumbnail" data-video-url="https://test.studioq.co.jp/wp-content/uploads/2025/10/music.pv-%EF%BC%94.mp4">
                         <img src="images/band01.JPG" alt="Studio Q 音楽映像作品" loading="eager" style="width: 100%; height: auto; display: block;">
                         <div class="play-button">
                             <i class="fas fa-play"></i>
@@ -347,7 +363,7 @@
             
             <div class="gallery-grid">
                 <div class="gallery-item video-gallery-item">
-                    <div class="gallery-video-thumbnail" data-video-url="movie/idole.mp4">
+                    <div class="gallery-video-thumbnail" data-video-url="https://test.studioq.co.jp/wp-content/uploads/2025/05/idole.mp4">
                         <img src="images/idole1-1.jpg" alt="Studio Q アイドル撮影事例 - アイドルの夢、実現プロジェクト" loading="lazy">
                         <div class="play-button">
                             <i class="fas fa-play"></i>
@@ -359,7 +375,7 @@
                     </div>
                 </div>
                 <div class="gallery-item video-gallery-item">
-                    <div class="gallery-video-thumbnail" data-video-url="movie/cosplay.mp4" data-background="images/cosplay02_3.3.2.png">
+                    <div class="gallery-video-thumbnail" data-video-url="https://test.studioq.co.jp/wp-content/uploads/2025/05/cosplay.mp4" data-background="images/cosplay02_3.3.2.png">
                         <div class="play-button">
                             <i class="fas fa-play"></i>
                         </div>
@@ -370,7 +386,7 @@
                     </div>
                 </div>
                 <div class="gallery-item video-gallery-item">
-                    <div class="gallery-video-thumbnail" data-video-url="movie/everything.mp4" data-background="images/youtube.jpg">
+                    <div class="gallery-video-thumbnail" data-video-url="https://test.studioq.co.jp/wp-content/uploads/2025/07/everything.mp4" data-background="images/youtube.jpg">
                         <div class="play-button">
                             <i class="fas fa-play"></i>
                         </div>
@@ -381,7 +397,7 @@
                     </div>
                 </div>
                 <div class="gallery-item video-gallery-item">
-                    <div class="gallery-video-thumbnail" data-video-url="movie/AI_master.mp4" data-background="images/school.jpg">
+                    <div class="gallery-video-thumbnail" data-video-url="https://test.studioq.co.jp/wp-content/uploads/2025/05/school_ai.mp4" data-background="images/school.jpg">
                         <!-- 背景画像として設定しました -->
                         <div class="play-button">
                             <i class="fas fa-play"></i>
@@ -516,7 +532,19 @@
             </div>
             
             <div class="contact-form">
-                <form action="/_site/send_mail.php" method="POST">
+                <form action="/_site/send_mail.php" method="POST" id="contactForm">
+                    <!-- ハニーポット（スパム対策：ボットが入力するが人間には見えない） -->
+                    <div class="hp-field" aria-hidden="true">
+                        <label for="website">ウェブサイト（入力しないでください）</label>
+                        <input type="text" name="website" id="website" tabindex="-1" autocomplete="off">
+                    </div>
+                    
+                    <!-- タイムスタンプ（スパム対策：フォーム表示時刻を記録） -->
+                    <input type="hidden" name="form_timestamp" id="formTimestamp" value="">
+                    
+                    <!-- reCAPTCHA v3トークン -->
+                    <input type="hidden" name="recaptcha_token" id="recaptchaToken" value="">
+                    
                     <div class="form-group">
                         <input type="text" name="name" placeholder="お名前" required>
                     </div>
@@ -530,6 +558,11 @@
                         <textarea name="message" placeholder="お問い合わせ内容" rows="5" required></textarea>
                     </div>
                     <button type="submit" class="btn">送信する</button>
+                    <p style="font-size: 0.85rem; color: #666; margin-top: 10px;">
+                        このサイトはreCAPTCHAによって保護されており、Googleの
+                        <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">プライバシーポリシー</a>と
+                        <a href="https://policies.google.com/terms" target="_blank" rel="noopener">利用規約</a>が適用されます。
+                    </p>
                 </form>
             </div>
         </div>
@@ -589,6 +622,76 @@
 <script>
     window.BLOG_DATA = {
       "posts": [
+        {
+          "id": "music-live-streaming-sound-space",
+          "title": "音楽ライブ配信の品質を決めるのは\"音\"と\"空間\"──スタジオQが選ばれる理由",
+          "date": "2025-11-15",
+          "excerpt": "音楽ライブ配信で最も重要な「音質」と「空間」。完全防音設計と5m天井高、マルチカメラ対応のスタジオQが、オンラインライブの世界観を最大限に引き出す理由を解説します。",
+          "image": "/images/bl03.png",
+          "category": "ライブ配信",
+          "url": "blog/music-live-streaming-sound-space.html",
+          "tags": ["音楽配信", "ライブ配信", "マルチカメラ", "完全防音"]
+        },
+        {
+          "id": "5m-ceiling-large-lighting-studioq",
+          "title": "5メートル天井×大型照明で変わる映像表現──大阪で数少ない\"本格スタジオQ\"が選ばれる理由",
+          "date": "2025-11-13",
+          "excerpt": "天井高5m以上の本格スタジオで実現する映像表現。大型照明、TikTok縦動画、MV撮影、バーチャル背景合成まで。大阪市内で数少ない高天井スタジオQの魅力を解説します。",
+          "image": "/images/IMG_5569.jpg",
+          "category": "スタジオ活用術",
+          "url": "blog/5m-ceiling-large-lighting-studioq.html",
+          "tags": ["高天井", "大型照明", "TikTok", "MV撮影"]
+        },
+        {
+          "id": "ai-video-sixth-generation-studioq",
+          "title": "AIと映像制作の融合。スタジオQが取り組む“第6世代”の撮影現場",
+          "date": "2025-10-21",
+          "excerpt": "AI×映像制作の最前線。AIスイッチングやAI背景合成、照明・音声のAI最適化と職人技の融合。Blackmagic/Sony/SHUREの業務用機材とAI制御を組み合わせた人間中心型ワークフローを解説。",
+          "image": "/images/kurokiJPG.JPG",
+          "category": "AI・バーチャル",
+          "url": "blog/ai-video-sixth-generation-studioq.html",
+          "tags": ["AI", "バーチャル", "Ultimatte", "同録"]
+        },
+        {
+          "id": "youtuber-streamer-pro-quality-studioq",
+          "title": "YouTuber・配信者必見！スタジオQで“プロ品質”の動画を撮る方法",
+          "date": "2025-10-19",
+          "excerpt": "YouTuber・配信者向け。同録対応・完全防音・業務用機材を備えたスタジオQで“プロ品質”の動画を撮る方法。4台スイッチング、Blackmagic×高性能マイク、照明・音響・編集サポートまでワンストップで実現。",
+          "image": "/images/top_VR4-1.jpg",
+          "category": "配信・YouTube",
+          "url": "blog/youtuber-streamer-pro-quality-studioq.html",
+          "tags": ["YouTube", "配信", "同録", "Blackmagic"]
+        },
+        {
+          "id": "studioq-deep-sound-recording-experience",
+          "title": "プロが語る“音の深み”とは？スタジオQで叶うリアルな録音体験",
+          "date": "2025-10-17",
+          "excerpt": "大阪・浪速区のスタジオQが提供する“音の深み”を追求した録音体験。プロ仕様マイク、完全防音空間、最適なマイク選定と配置、熟練エンジニアのワークフローで、ナレーションやアコースティック演奏まで立体感と抜けのある高音質を実現。",
+          "image": "/images/st10.jpg",
+          "category": "音響・収録",
+          "url": "blog/studioq-deep-sound-recording-experience.html",
+          "tags": ["音響", "防音", "同録", "スタジオQ"]
+        },
+        {
+          "id": "studioq-dj-live-streaming",
+          "title": "スタジオQで実現する「DJ配信」 ― 音と映像が一体となった新時代のライブ空間",
+          "date": "2025-10-15",
+          "excerpt": "完全防音×マルチカメラ×ATEMスイッチャー×本格照明×Ultimatte合成で、DJ配信を高音質・高画質に。大阪から世界へライブ発信、YouTube/Twitch/TikTok Live対応。",
+          "image": "/images/dj02.jpg",
+          "category": "ライブ配信",
+          "url": "blog/studioq-dj-live-streaming.html",
+          "tags": ["DJ配信", "ライブ配信", "マルチカメラ", "Ultimatte"]
+        },
+        {
+          "id": "studioq-acoustics-pro-sound-immersion",
+          "title": "スタジオQの音響 ― プロ仕様の高音質が生み出す“本物の臨場感”",
+          "date": "2025-10-13",
+          "excerpt": "完全防音構造×高精度マイク×プロのサウンドデザインで“本物の臨場感”。映像と同時に高音質を収録できるスタジオQの音響設備と強みを解説。ナレーション・吹き替え・配信・音楽ライブにも対応。",
+          "image": "/images/st11.jpg",
+          "category": "音響・収録",
+          "url": "blog/studioq-acoustics-pro-sound-immersion.html",
+          "tags": ["音響", "防音", "同録", "スタジオQ"]
+        },
         {
           "id": "unreal-engine-studioq-3d-composite",
           "title": "Unreal Engine × Studio Q：リアルとバーチャルを融合する新時代の3D合成撮影",

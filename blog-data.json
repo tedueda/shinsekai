@@ -1,6 +1,24 @@
 {
   "posts": [
     {
+      "id": "music-live-streaming-sound-space",
+      "title": "音楽ライブ配信の品質を決めるのは\"音\"と\"空間\"──スタジオQが選ばれる理由",
+      "date": "2025-11-15",
+      "excerpt": "音楽ライブ配信で最も重要な「音質」と「空間」。完全防音設計と5m天井高、マルチカメラ対応のスタジオQが、オンラインライブの世界観を最大限に引き出す理由を解説します。",
+      "image": "/images/bl03.png",
+      "category": "ライブ配信",
+      "url": "blog/music-live-streaming-sound-space.html"
+    },
+    {
+      "id": "5m-ceiling-large-lighting-studioq",
+      "title": "5メートル天井×大型照明で変わる映像表現──大阪で数少ない\"本格スタジオQ\"が選ばれる理由",
+      "date": "2025-11-13",
+      "excerpt": "天井高5m以上の本格スタジオで実現する映像表現。大型照明、TikTok縦動画、MV撮影、バーチャル背景合成まで。大阪市内で数少ない高天井スタジオQの魅力を解説します。",
+      "image": "/images/IMG_5569.jpg",
+      "category": "スタジオ活用術",
+      "url": "blog/5m-ceiling-large-lighting-studioq.html"
+    },
+    {
       "id": "studioq-microphone-audio-quality",
       "title": "スタジオQの優れたマイクがもたらす圧倒的な音質体験",
       "date": "2025-09-25",
