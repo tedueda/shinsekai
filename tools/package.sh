@@ -9,6 +9,15 @@ DATE_TAG="${1:-$(date +%Y-%m-%d)}"
 # Build public from src
 rsync -a --delete "$SRC/" "$PUBLIC/"
 
+# Fix absolute paths in blog files (for local/subdirectory support)
+echo "Fixing paths in public/blog/..."
+find "$PUBLIC/blog" -name "*.html" -print0 | xargs -0 sed -i '' 's|href="/_site/|href="../_site/|g'
+find "$PUBLIC/blog" -name "*.html" -print0 | xargs -0 sed -i '' 's|src="/_site/|src="../_site/|g'
+find "$PUBLIC/blog" -name "*.html" -print0 | xargs -0 sed -i '' 's|href="/images/|href="../images/|g'
+find "$PUBLIC/blog" -name "*.html" -print0 | xargs -0 sed -i '' 's|src="/images/|src="../images/|g'
+find "$PUBLIC/blog" -name "*.html" -print0 | xargs -0 sed -i '' 's|href="/"|href="../index.html#home"|g'
+
+
 # Create release snapshot
 DEST="$RELEASES/$DATE_TAG"
 mkdir -p "$DEST"

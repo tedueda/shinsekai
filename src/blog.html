@@ -226,6 +226,33 @@
       window.BLOG_DATA = {
         "posts": [
           {
+            "id": "virtual-production-corporate-promotion",
+            "title": "バーチャル合成を使った企業プロモーション動画の成功パターン — 実写と3D背景でブランド価値を劇的に高める方法",
+            "date": "2025-12-07",
+            "excerpt": "企業プロモーション動画におけるバーチャル合成（グリーンバック撮影）の活用法を解説。実写と3D背景の組み合わせ、AI編集、スタジオ活用による成功パターンを紹介します。",
+            "image": "/images/cosplay02_3.3.2.png",
+            "category": "バーチャル撮影",
+            "url": "blog/virtual-production-corporate-promotion.html"
+          },
+          {
+            "id": "music-live-studio-selection",
+            "title": "音楽ライブ撮影を高品質に行うためのスタジオ選びのポイントとは",
+            "date": "2025-12-05",
+            "excerpt": "音楽ライブ撮影を成功させるスタジオ選びのポイントを解説。音響環境、PTZカメラ、マルチアングル撮影、天井高、照明設備など、高品質なライブ映像制作に必要な要素をまとめました。",
+            "image": "/images/mu02.jpg",
+            "category": "音楽撮影・ライブ配信",
+            "url": "blog/music-live-studio-selection.html"
+          },
+          {
+            "id": "ptz-remote-switching-省人化-2025",
+            "title": "PTZカメラと遠隔スイッチングが変える\"省人化撮影\"の最新事例【2025年版】",
+            "date": "2025-12-03",
+            "excerpt": "2025年、PTZカメラと遠隔スイッチングで映像制作の省人化が加速。Sony高性能PTZシリーズ、AIトラッキング、IP伝送により、3〜4名必要だったマルチカメラ撮影を1〜2名で運用可能に。トーク番組、音楽ライブ、バーチャルスタジオでの最新導入事例とメリットを解説します。",
+            "image": "/images/SONY_PTZ.png",
+            "category": "制作ワークフロー",
+            "url": "blog/ptz-remote-switching-省人化-2025.html"
+          },
+          {
             "id": "music-recording-live-studioq-osaka",
             "title": "\"音で魅せる映像\"が求められる時代へ──音楽撮影なら大阪のスタジオQ",
             "date": "2025-12-01",
@@ -583,7 +610,7 @@
               "title": "プロが教える4Kカメラの選び方",
               "date": "2025-03-15",
               "excerpt": "映像制作において重要な4Kカメラの選び方を、プロの視点から詳しく解説します。",
-              "image": "/images/slide4-2_1920-jpg (1).webp",
+              "image": "/images/slide4.jpg",
               "category": "機材ガイド",
               "url": "blog/4k-camera-guide.html"
             },
@@ -660,11 +687,11 @@ class BlogManager {
      * ブログカードHTMLを生成
      */
     createBlogCardHTML(post) {
-        // 画像/URLはルート絶対パスを優先
+        // 画像/URLはルート絶対パスを優先せず、そのまま使用（相対パス許容）
         const rawImage = post.image || '';
         const rawUrl = post.url || '';
-        const imagePath = rawImage.startsWith('/') ? rawImage : `/${rawImage}`;
-        const urlPath = rawUrl.startsWith('/') ? rawUrl : `/${rawUrl}`;
+        const imagePath = rawImage;
+        const urlPath = rawUrl;
         const safeImage = imagePath ? `${encodeURI(imagePath)}?${this.version}` : '';
         return `
             <article class="blog-card">

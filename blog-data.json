@@ -1,6 +1,33 @@
 {
   "posts": [
     {
+      "id": "ptz-remote-switching-省人化-2025",
+      "title": "PTZカメラと遠隔スイッチングが変える\"省人化撮影\"の最新事例【2025年版】",
+      "date": "2025-12-03",
+      "excerpt": "2025年、PTZカメラと遠隔スイッチングで映像制作の省人化が加速。Sony高性能PTZシリーズ、AIトラッキング、IP伝送により、3〜4名必要だったマルチカメラ撮影を1〜2名で運用可能に。トーク番組、音楽ライブ、バーチャルスタジオでの最新導入事例とメリットを解説します。",
+      "image": "/images/SONY_PTZ.png",
+      "category": "制作ワークフロー",
+      "url": "blog/ptz-remote-switching-省人化-2025.html"
+    },
+    {
+      "id": "ptz-multi-camera-small-crew-workflow",
+      "title": "プロ現場で進む\"少人数収録\"の最適解｜マルチカメラ×PTZがもたらす新しい制作ワークフロー",
+      "date": "2025-11-27",
+      "excerpt": "映像制作の現場で急増する少人数収録のニーズ。PTZカメラとマルチカメラ運用で実現する、人員削減と高品質の両立。プロユースの現場でPTZが選ばれる理由と最新の制作ワークフローを解説します。",
+      "image": "/images/slide4.jpg",
+      "category": "制作ワークフロー",
+      "url": "blog/ptz-multi-camera-small-crew-workflow.html"
+    },
+    {
+      "id": "pro-audio-quality-optimization",
+      "title": "プロ現場で\"音声クオリティ\"が最重要視される理由｜配信・収録を成功させる最新スタジオ活用術",
+      "date": "2025-11-25",
+      "excerpt": "映像制作の世界で音声クオリティが作品の完成度を大きく左右する理由を解説。配信・収録で音声品質を最大化するポイントと、完全防音・高品質マイク・専属オペレーターを備えたスタジオ活用の最新トレンドをご紹介します。",
+      "image": "/images/st07.jpg",
+      "category": "音声最適化",
+      "url": "blog/pro-audio-quality-optimization.html"
+    },
+    {
       "id": "music-live-streaming-sound-space",
       "title": "音楽ライブ配信の品質を決めるのは\"音\"と\"空間\"──スタジオQが選ばれる理由",
       "date": "2025-11-15",
@@ -17,6 +44,105 @@
       "image": "/images/IMG_5569.jpg",
       "category": "スタジオ活用術",
       "url": "blog/5m-ceiling-large-lighting-studioq.html"
+    },
+    {
+      "id": "ai-video-sixth-generation-studioq",
+      "title": "AIと映像制作の融合。スタジオQが取り組む\"第6世代\"の撮影現場",
+      "date": "2025-10-21",
+      "excerpt": "スタジオQが実践する\"第6世代\"の撮影現場。AI×映像制作の最前線として、AIスイッチング、AI背景合成、照明・音声のAI最適化と職人技の融合、BlackmagicやSony、SHUREなどの業務用機材を組み合わせた人間中心型ワークフローを解説。",
+      "image": "/images/kurokiJPG.JPG",
+      "category": "AI映像制作",
+      "url": "blog/ai-video-sixth-generation-studioq.html"
+    },
+    {
+      "id": "youtuber-streamer-pro-quality-studioq",
+      "title": "YouTuber・配信者必見！スタジオQで\"プロ品質\"の動画を撮る方法",
+      "date": "2025-10-19",
+      "excerpt": "YouTuber・配信者向けに、同録対応・完全防音・業務用機材を備えた大阪・スタジオQで\"プロ品質\"の動画を撮る方法を解説。4台スイッチング、Blackmagic×高性能マイク、照明・音響・編集サポートまで、撮影から配信までワンストップで実現。",
+      "image": "/images/top_VR4-1.jpg",
+      "category": "YouTuber・配信者",
+      "url": "blog/youtuber-streamer-pro-quality-studioq.html"
+    },
+    {
+      "id": "studioq-deep-sound-recording-experience",
+      "title": "プロが語る\"音の深み\"とは？スタジオQで叶うリアルな録音体験",
+      "date": "2025-10-17",
+      "excerpt": "大阪・浪速区のスタジオQが提供する\"音の深み\"を追求した録音体験。プロ仕様マイク、完全防音空間、最適なマイク選定と配置、エンジニアのワークフローにより、ナレーションやアコースティック演奏まで立体感と抜けのある高音質を実現。",
+      "image": "/images/st10.jpg",
+      "category": "音響・録音",
+      "url": "blog/studioq-deep-sound-recording-experience.html"
+    },
+    {
+      "id": "studioq-dj-live-streaming",
+      "title": "スタジオQで実現する「DJ配信」 ― 音と映像が一体となった新時代のライブ空間",
+      "date": "2025-10-15",
+      "excerpt": "音と映像、照明と合成が一体化したプロ仕様のDJ配信環境。大阪・スタジオQから世界へ高品質ライブを発信。",
+      "image": "/images/dj02.jpg",
+      "category": "ライブ配信",
+      "url": "blog/studioq-dj-live-streaming.html"
+    },
+    {
+      "id": "studioq-acoustics-pro-sound-immersion",
+      "title": "スタジオQの音響 ― プロ仕様の高音質が生み出す\"本物の臨場感\"",
+      "date": "2025-10-13",
+      "excerpt": "完全防音構造×高精度マイク×プロのサウンドデザインで\"本物の臨場感\"。映像と同時に高音質を収録できる大阪・スタジオQの音響設備と強みを解説。",
+      "image": "/images/st11.jpg",
+      "category": "音響・録音",
+      "url": "blog/studioq-acoustics-pro-sound-immersion.html"
+    },
+    {
+      "id": "unreal-engine-studioq-3d-composite",
+      "title": "Unreal Engine × Studio Q：リアルとバーチャルを融合する新時代の3D合成撮影",
+      "date": "2025-10-11",
+      "excerpt": "リアルタイム3D合成で現実と仮想をシームレスに融合。撮影現場で完成形に近い絵を確認しながら高速制作。企業PR・教育・ライブ配信に最適。",
+      "image": "/images/mu02.jpg",
+      "category": "バーチャル撮影",
+      "url": "blog/unreal-engine-studioq-3d-composite.html"
+    },
+    {
+      "id": "blackmagic-ultimatte-studioq",
+      "title": "スタジオQが導入する「Blackmagic Design Ultimatte」 ─ 究極のリアルタイム合成技術",
+      "date": "2025-10-09",
+      "excerpt": "髪の毛やガラスの透過まで美しく処理。色補正/照明マッチングも自動最適化し、違和感ゼロのリアルタイム合成を実現。放送・ライブ配信にも最適。",
+      "image": "/images/slide5.jpg",
+      "category": "機材ガイド",
+      "url": "blog/blackmagic-ultimatte-studioq.html"
+    },
+    {
+      "id": "greenscreen-shooting-studioq",
+      "title": "グリーンバック撮影で生まれる新しい映像表現 ─ 現実を超えるスタジオQの映像制作",
+      "date": "2025-10-07",
+      "excerpt": "高精度クロマキー合成×完全防音の同録対応。AI背景やCG演出で\"現実を超える\"映像表現を短納期で提供。",
+      "image": "/images/CG01.png",
+      "category": "撮影テクニック",
+      "url": "blog/greenscreen-shooting-studioq.html"
+    },
+    {
+      "id": "music-onboard-recording-studioq",
+      "title": "完全防音スタジオで実現する「音楽の同録」──スタジオQが叶えるリアルな音と映像の融合",
+      "date": "2025-10-05",
+      "excerpt": "完全防音構造×マルチカメラ×マルチトラック録音で、リアルな臨場感をそのまま作品化。ライブ収録・配信・企業PVまで高品質に同時収録。",
+      "image": "/images/st01.jpg",
+      "category": "同録スタジオガイド",
+      "url": "blog/music-onboard-recording-studioq.html"
+    },
+    {
+      "id": "multi-camera-shooting-studioq",
+      "title": "スタジオQの「マルチカメラ撮影」が創り出す、映像表現の新時代",
+      "date": "2025-10-03",
+      "excerpt": "4台同時収録×リアルタイムスイッチングで臨場感と表現力を最大化。完全防音環境で音声も高品位。編集効率も大幅アップ。",
+      "image": "/images/top3-1.jpg",
+      "category": "撮影テクニック",
+      "url": "blog/multi-camera-shooting-studioq.html"
+    },
+    {
+      "id": "cosplay-ai-background-worldview",
+      "title": "コスプレ撮影をもっと自由に――AI背景で広がる\"自分だけの世界観\"",
+      "date": "2025-10-01",
+      "excerpt": "AI背景とグリーンバック合成で理想のロケーションを実現。大阪の『スタジオQ』は高天井・広い空間・本格照明・同録対応で、コスプレ撮影をハイクオリティに。",
+      "image": "/images/cosplay03_3.4.1.png",
+      "category": "コスプレ撮影",
+      "url": "blog/cosplay-ai-background-worldview.html"
     },
     {
       "id": "studioq-microphone-audio-quality",
@@ -41,7 +167,7 @@
       "title": "黒幕と照明が生み出す大ホールの臨場感｜スタジオQの魅力",
       "date": "2025-08-29",
       "excerpt": "黒幕と照明演出を活かして、まるで大ホールのような壮大な臨場感を映像に。音と光が融合するスタジオQの撮影環境の魅力を紹介します。",
-      "image": "/2025-08-29/images/shomei01.jpg",
+      "image": "/images/shomei01.jpg",
       "category": "照明・撮影",
       "url": "blog/black-curtain-lighting.html"
     },

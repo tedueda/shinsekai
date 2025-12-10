@@ -1,3 +1,14 @@
+    // ローカル動画ディレクトリ（存在すればこちらを優先）
+    const LOCAL_VIDEO_DIR = '/movie';
+    function toLocalPathIfAvailable(url) {
+        try {
+            const name = (decodeURIComponent(url).split('/').pop() || '').split('?')[0];
+            if (!name) return null;
+            return `${LOCAL_VIDEO_DIR}/${name}`;
+        } catch (_) {
+            return null;
+        }
+    }
 // ナビゲーションメニューのトグル機能
 const menuToggle = document.querySelector('.menu-toggle');
 const nav = document.querySelector('nav');
@@ -366,11 +377,26 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // 動画プリロード用のキャッシュ
     const videoPreloadCache = new Map();
+    // プリロード/取得時のキャッシュキーを正規化
+    function normalizeUrlForCache(url) {
+        if (!url) return url;
+        try {
+            const decoded = decodeURIComponent(url);
+            if (decoded === url && url.match(/[^\x00-\x7F]/)) {
+                return encodeURI(url);
+            }
+        } catch (e) {
+            // ignore
+        }
+        return url;
+    }
     
     // 動画の事前読み込み機能
-    function preloadVideo(videoUrl) {
-        if (!videoUrl || videoPreloadCache.has(videoUrl)) {
-            return videoPreloadCache.get(videoUrl);
+    function preloadVideo(videoUrl, preloadType = 'metadata') {
+        if (!videoUrl) return null;
+        const cacheKey = normalizeUrlForCache(videoUrl);
+        if (videoPreloadCache.has(cacheKey)) {
+            return videoPreloadCache.get(cacheKey);
         }
         
         // YouTubeの場合はプリロードしない（iframe埋め込みのため）
@@ -381,29 +407,29 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log('動画をプリロード中:', videoUrl);
         
         const video = document.createElement('video');
-        video.preload = 'metadata'; // メタデータのみプリロード（帯域節約）
+        video.preload = preloadType; // 'metadata' or 'auto'
         video.muted = true; // プリロード時はミュート
         video.style.display = 'none'; // 非表示
         
-        // 日本語ファイル名の処理
-        let processedUrl = videoUrl;
-        try {
-            const decodedUrl = decodeURIComponent(videoUrl);
-            if (decodedUrl === videoUrl && videoUrl.match(/[^\x00-\x7F]/)) {
-                processedUrl = encodeURI(videoUrl);
-            }
-        } catch (e) {
-            console.error('URL処理エラー:', e);
+        // 外部URLを先に、ローカル候補を後に追加（404待ちによる遅延を回避）
+        const localCandidate = toLocalPathIfAvailable(videoUrl);
+        const externalUrl = normalizeUrlForCache(videoUrl);
+
+        const sExt = document.createElement('source');
+        sExt.src = externalUrl;
+        sExt.type = 'video/mp4';
+        video.appendChild(sExt);
+
+        if (localCandidate) {
+            const sLocal = document.createElement('source');
+            sLocal.src = localCandidate;
+            sLocal.type = 'video/mp4';
+            video.appendChild(sLocal);
         }
         
-        const source = document.createElement('source');
-        source.src = processedUrl;
-        source.type = 'video/mp4';
-        video.appendChild(source);
-        
         // WebM形式も追加
-        if (processedUrl.toLowerCase().endsWith('.mp4')) {
-            const webmUrl = processedUrl.replace(/\.mp4$/i, '.webm');
+        if (externalUrl.toLowerCase().endsWith('.mp4')) {
+            const webmUrl = externalUrl.replace(/\.mp4$/i, '.webm');
             const webmSource = document.createElement('source');
             webmSource.src = webmUrl;
             webmSource.type = 'video/webm';
@@ -430,7 +456,7 @@ document.addEventListener('DOMContentLoaded', () => {
         video.load();
         
         // キャッシュに保存
-        videoPreloadCache.set(videoUrl, video);
+        videoPreloadCache.set(cacheKey, video);
         
         return video;
     }
@@ -443,18 +469,48 @@ document.addEventListener('DOMContentLoaded', () => {
             ...Array.from(document.querySelectorAll('.gallery-video-thumbnail'))
         ];
         
-        allThumbnails.forEach((thumbnail, index) => {
+        // eager指定は最優先で即時プリロード（auto）
+        allThumbnails.filter(t => t.dataset.preload === 'eager').forEach(t => {
+            const url = t.getAttribute('data-video-url');
+            if (url) preloadVideo(url, 'auto');
+        });
+
+        // それ以外は従来どおり遅延（metadata）
+        let delayIndex = 0;
+        allThumbnails.filter(t => t.dataset.preload !== 'eager').forEach((thumbnail) => {
             const videoUrl = thumbnail.getAttribute('data-video-url');
             if (videoUrl) {
-                // 段階的にプリロード（ネットワーク負荷分散）
                 setTimeout(() => {
-                    preloadVideo(videoUrl);
-                }, index * 500); // 500ms間隔でプリロード
+                    preloadVideo(videoUrl, 'metadata');
+                }, delayIndex++ * 500);
             }
+        });
+
+        // iOSで問題が出ているローカル動画を明示的にpreload（ブラウザヒント）
+        const criticalLocal = [
+            'movie/KUROKI.mp4',
+            'movie/music.pv4.mp4',
+            'movie/cosplay.mp4'
+        ];
+        criticalLocal.forEach((p) => {
+            try {
+                const link = document.createElement('link');
+                link.rel = 'preload';
+                link.as = 'video';
+                link.href = p;
+                document.head.appendChild(link);
+            } catch(_) {}
         });
     }
     
-    // ページ読み込み完了後にプリロード開始
+    // eagerはDOM読み込み後即時、それ以外はwindow load後
+    document.addEventListener('DOMContentLoaded', () => {
+        try {
+            // eagerのみ先に処理
+            const eagerThumb = document.querySelectorAll('[data-preload="eager"][data-video-url]');
+            eagerThumb.forEach(el => preloadVideo(el.getAttribute('data-video-url'), 'auto'));
+        } catch(_) {}
+    });
     if (document.readyState === 'complete') {
         initVideoPreloading();
     } else {
@@ -496,6 +552,52 @@ document.addEventListener('DOMContentLoaded', () => {
             activeOverlay = null;
             activeVideoEl = null;
             escKeyHandler = null;
+        }
+    }
+
+    // クリック後に即時再生を試みるヘルパー（読み込み状態に依存しない）
+    function tryPlay(videoEl) {
+        if (!videoEl || typeof videoEl.play !== 'function') return;
+
+        // 再生ロジック: 非ミュート→失敗時ミュートで再試行
+        const attempt = (muted) => {
+            try {
+                if (videoEl.tagName === 'VIDEO') videoEl.muted = !!muted;
+                const p = videoEl.play();
+                if (p && typeof p.then === 'function') {
+                    return p;
+                }
+            } catch (err) {
+                return Promise.reject(err);
+            }
+            return Promise.resolve();
+        };
+
+        const doPlay = () => {
+            attempt(false).then(() => {
+                // 非ミュートで再生成功
+            }).catch(() => {
+                // 非ミュート失敗 → ミュートで再試行
+                attempt(true).then(() => {
+                    // 再生開始後に自動でミュート解除
+                    const unmute = () => {
+                        try { if (videoEl.tagName === 'VIDEO') videoEl.muted = false; } catch(_) {}
+                        videoEl.removeEventListener('playing', unmute);
+                    };
+                    videoEl.addEventListener('playing', unmute);
+                }).catch(err2 => {
+                    console.warn('動画の再生に失敗しました:', err2);
+                });
+            });
+        };
+
+        if (videoEl.readyState >= 3) { // HAVE_FUTURE_DATA
+            doPlay();
+        } else {
+            videoEl.addEventListener('canplay', doPlay, { once: true });
+            videoEl.addEventListener('loadeddata', doPlay, { once: true });
+            // 読み込みが遅い場合でも即試行しておく（多くの端末でユーザー操作起因のplayが許可される）
+            doPlay();
         }
     }
 
@@ -648,9 +750,12 @@ document.addEventListener('DOMContentLoaded', () => {
             } catch (e) {
                 console.error('URL処理エラー:', e);
             }
+            // ローカル優先の候補
+            const localCandidate = toLocalPathIfAvailable(processedUrl);
             
             // プリロード済みの動画があるかチェック
-            const preloadedVideo = videoPreloadCache.get(videoUrl);
+            const cacheKey = normalizeUrlForCache(videoUrl);
+            const preloadedVideo = videoPreloadCache.get(cacheKey);
             
             if (preloadedVideo) {
                 console.log('プリロード済み動画を使用:', videoUrl);
@@ -661,9 +766,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 videoElement.setAttribute('controls', 'true');
                 videoElement.setAttribute('autoplay', 'true');
                 videoElement.setAttribute('playsinline', 'true');
+                videoElement.setAttribute('webkit-playsinline', 'true');
                 videoElement.setAttribute('preload', 'auto');
                 videoElement.style.display = 'block'; // 表示状態に戻す
-                videoElement.muted = false; // ミュート解除
+                // 再生互換性のため一旦ミュートで開始し、playing後に解除
+                videoElement.muted = true;
                 videoElement.className = 'popup-video';
                 
                 // プリロード済み動画をDOMから削除
@@ -675,16 +782,21 @@ document.addEventListener('DOMContentLoaded', () => {
                 // 通常の動画ファイルの場合
                 videoElement = document.createElement('video');
                 
-                // キャッシュバスターを削除（ロード時間短縮のため）
-                const videoUrlWithCacheBuster = processedUrl;
-                console.log('処理後のURL:', videoUrlWithCacheBuster);
-                
-                // source要素を使用して動画を読み込む
-                const sourceElement = document.createElement('source');
-                sourceElement.setAttribute('src', videoUrlWithCacheBuster);
-                sourceElement.setAttribute('type', 'video/mp4');
-                videoElement.appendChild(sourceElement);
-                
+                // 外部URLを優先し、必要ならローカル候補をフォールバックとして追加
+                const primaryUrl = processedUrl;
+                console.log('処理後のURL:', primaryUrl);
+
+                const sourceElementExt = document.createElement('source');
+                sourceElementExt.setAttribute('src', primaryUrl);
+                sourceElementExt.setAttribute('type', 'video/mp4');
+                videoElement.appendChild(sourceElementExt);
+
+                if (localCandidate) {
+                    const sourceElementLocal = document.createElement('source');
+                    sourceElementLocal.setAttribute('src', localCandidate);
+                    sourceElementLocal.setAttribute('type', 'video/mp4');
+                    videoElement.appendChild(sourceElementLocal);
+                }
                 // WebM形式のソースも追加（可能であれば）
                 if (processedUrl.toLowerCase().endsWith('.mp4')) {
                     const webmUrl = processedUrl.replace(/\.mp4$/i, '.webm');
@@ -698,14 +810,43 @@ document.addEventListener('DOMContentLoaded', () => {
                 videoElement.setAttribute('controls', 'true');
                 videoElement.setAttribute('autoplay', 'true');
                 videoElement.setAttribute('playsinline', 'true'); // iOSでの再生をサポート
+                videoElement.setAttribute('webkit-playsinline', 'true');
                 videoElement.setAttribute('preload', 'auto'); // 動画の事前読み込みを有効化
                 videoElement.className = 'popup-video';
+                // 事前に load() を明示して I/O を開始
+                try { videoElement.load(); } catch (e) {}
+                // 再生互換性のため一旦ミュートで開始
+                videoElement.muted = true;
             }
             
             // エラーハンドリングを追加
             videoElement.onerror = function(e) {
                 // エラーコードに基づいたメッセージを生成
                 let errorMessage = '動画の読み込みに失敗しました。';
+                // 一度だけローカル/外部のフォールバック順序を切り替える
+                if (!videoElement.dataset.fallbackTried) {
+                    videoElement.dataset.fallbackTried = '1';
+                    try {
+                        const original = processedUrl || videoUrl;
+                        const filename = original.split('/').pop().split('?')[0];
+                        if (filename) {
+                            const localUrl = `${LOCAL_VIDEO_DIR}/${filename}`;
+                            const isCurrentlyLocal = Array.from(videoElement.querySelectorAll('source')).some(s => s.getAttribute('src') === localUrl);
+                            // もしローカル優先で失敗していたら外部へ、逆ならローカルへ
+                            const fallbackUrl = isCurrentlyLocal ? processedUrl : localUrl;
+                            console.warn('読み込みフォールバックを試行:', fallbackUrl);
+                            // 既存sourceを差し替え
+                            try { Array.from(videoElement.querySelectorAll('source')).forEach(s => s.remove()); } catch(_) {}
+                            const srcMp4 = document.createElement('source');
+                            srcMp4.setAttribute('src', fallbackUrl);
+                            srcMp4.setAttribute('type', 'video/mp4');
+                            videoElement.appendChild(srcMp4);
+                            try { videoElement.load(); } catch(_) {}
+                            tryPlay(videoElement);
+                            return; // メッセージ表示は保留
+                        }
+                    } catch(_) {}
+                }
                 if (videoElement.error) {
                     const errorCode = videoElement.error.code;
                     switch(errorCode) {
@@ -769,6 +910,21 @@ document.addEventListener('DOMContentLoaded', () => {
         activeVideoEl = videoElement;
 
         // Escキーで閉じる
+        
+        // クリック直後の即時再生を確実に試みる
+        try {
+            // 念のため load() を再度呼び、次に再生
+            if (typeof videoElement.load === 'function') videoElement.load();
+        } catch (_) {}
+        tryPlay(videoElement);
+        // 再生開始後にミュート解除（ユーザー操作に伴っているため許可されやすい）
+        if (videoElement && videoElement.tagName === 'VIDEO') {
+            const unmute = () => {
+                try { videoElement.muted = false; } catch(_) {}
+                videoElement.removeEventListener('playing', unmute);
+            };
+            videoElement.addEventListener('playing', unmute);
+        }
         escKeyHandler = (ev) => {
             if (ev.key === 'Escape') {
                 ev.preventDefault();
@@ -808,3 +964,55 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // ヒーロービデオの制御は新しいスライドショー制御に統合されました
+
+// スパム対策: フォーム送信時のタイムスタンプと検証
+document.addEventListener('DOMContentLoaded', () => {
+    const contactForm = document.getElementById('contactForm');
+    const timestampField = document.getElementById('formTimestamp');
+    
+    // ページ読み込み時のタイムスタンプを記録（スパム対策）
+    if (timestampField) {
+        timestampField.value = Date.now();
+    }
+    
+    // フォーム送信時の処理
+    if (contactForm) {
+        contactForm.addEventListener('submit', async function(e) {
+            // ハニーポット検証（ボットがwebsiteフィールドに入力していないか確認）
+            const honeypot = document.getElementById('website');
+            if (honeypot && honeypot.value !== '') {
+                // スパムと判断（画面には何も表示せず、送信を中止）
+                e.preventDefault();
+                console.log('スパム検出: ハニーポット');
+                return false;
+            }
+            
+            // タイムスタンプ検証（送信が速すぎないか確認 - 3秒未満はボットの可能性）
+            const currentTime = Date.now();
+            const formLoadTime = parseInt(timestampField.value);
+            const timeDiff = (currentTime - formLoadTime) / 1000; // 秒単位
+            
+            if (timeDiff < 3) {
+                e.preventDefault();
+                alert('送信が早すぎます。もう一度お試しください。');
+                return false;
+            }
+            
+            // reCAPTCHA v3トークンの取得
+            e.preventDefault();
+            const recaptchaToken = document.getElementById('recaptchaToken');
+            
+            try {
+                const token = await grecaptcha.execute('6LcWv_srAAAAAOC4p5xFd2tQRMZRnRW_AbHoHVTV', {action: 'submit'});
+                recaptchaToken.value = token;
+                
+                // トークン取得後、フォームを送信
+                contactForm.submit();
+            } catch (error) {
+                console.error('reCAPTCHAエラー:', error);
+                alert('送信に失敗しました。もう一度お試しください。');
+                return false;
+            }
+        });
+    }
+});
