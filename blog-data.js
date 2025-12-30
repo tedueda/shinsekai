@@ -3,6 +3,24 @@
 window.BLOG_DATA = {
   "posts": [
     {
+      "id": "music-shooting-tips-studioq",
+      "title": "音楽撮影で失敗しない方法｜同録・マルチ収録・複数カメラの基本（スタジオQ）",
+      "date": "2025-12-23",
+      "excerpt": "音楽撮影で「作品の説得力」を決めるのは、映像以上に“音”です。スタジオQでは、ライブ演奏・歌唱・対談セッションなど、音楽コンテンツを「撮って終わり」ではなく“配信・納品まで強い素材”として収録することを重視しています。",
+      "image": "/images/mu06.jpg",
+      "category": "音楽撮影・ライブ配信",
+      "url": "blog/music-shooting-tips-studioq.html"
+    },
+    {
+      "id": "dourok-studio-recording-guide",
+      "title": "同録で“音の失敗”をなくす：撮影現場の実践ガイド",
+      "date": "2025-12-21",
+      "excerpt": "映像を撮りながら、その場の音も同時に“本番録音”することを同録（どうろく）と言います。インタビュー、対談、ライブ配信、セミナー収録など、編集で差し替えにくい「空気感」が大事な現場で特に有効です。",
+      "image": "/images/st10.jpg",
+      "category": "同録スタジオガイド",
+      "url": "blog/dourok-studio-recording-guide.html"
+    },
+    {
       "id": "music-live-streaming-sound-space",
       "title": "音楽ライブ配信の品質を決めるのは\"音\"と\"空間\"──スタジオQが選ばれる理由",
       "date": "2025-11-15",
