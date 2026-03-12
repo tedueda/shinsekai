@@ -334,7 +334,7 @@ header {
 }
 
 .logo-image {
-    height: 40px;
+    height: 108px;
     width: auto;
     display: block;
     filter: drop-shadow(0 0 5px rgba(57, 255, 20, 0.5));
@@ -453,11 +453,10 @@ nav ul li a:hover::after {
 }
 
 .hero-content-logo {
-    height: 80px;
+    height: 234px;
     width: auto;
     display: block;
     margin: 0 auto 15px;
-    filter: drop-shadow(0 0 10px rgba(57, 255, 20, 0.8));
 }
 
 .slideshow-container {
@@ -492,6 +491,11 @@ nav ul li a:hover::after {
     z-index: 1;
 }
 
+.slide-contain {
+    background-size: contain !important;
+    background-repeat: no-repeat;
+}
+
 .slide-video {
     position: absolute;
     top: 50%;
@@ -522,28 +526,28 @@ nav ul li a:hover::after {
 
 .slide-overlay.from-green-900\/50.via-green-600\/30.to-black\/90 {
     /* 黒を基調としたオーバーレイ */
-    background: linear-gradient(135deg, rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0.05));
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.22), rgba(0, 0, 0, 0.25));
     box-shadow: none;
     border-bottom: none;
 }
 
 .slide-overlay.from-blue-900\/50.via-purple-600\/30.to-black\/90 {
     /* 黒を基調としたオーバーレイ */
-    background: linear-gradient(135deg, rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0.05));
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.22), rgba(0, 0, 0, 0.25));
     box-shadow: none;
     border-bottom: none;
 }
 
 .slide-overlay.from-purple-900\/50.via-pink-600\/30.to-black\/90 {
     /* 黒を基調としたオーバーレイ */
-    background: linear-gradient(135deg, rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0.05));
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.22), rgba(0, 0, 0, 0.25));
     box-shadow: none;
     border-bottom: none;
 }
 
 .slide-overlay.from-amber-900\/50.via-yellow-600\/30.to-black\/90 {
     /* 黒を基調としたオーバーレイ */
-    background: linear-gradient(135deg, rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0.05));
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.22), rgba(0, 0, 0, 0.25));
     box-shadow: none;
     border-bottom: none;
 }
@@ -619,7 +623,7 @@ nav ul li a:hover::after {
 }
 
 .btn-secondary {
-    background-color: transparent;
+    background-color: rgba(0, 0, 0, 0.3);
     color: #fff;
     border: 2px solid #fff;
 }
@@ -680,7 +684,7 @@ nav ul li a:hover::after {
     }
 
     .hero-content-logo {
-        height: 60px;
+        height: 176px;
     }
 
     .hero-actions {
@@ -731,7 +735,7 @@ nav ul li a:hover::after {
     }
 
     .hero-content-logo {
-        height: 50px;
+        height: 146px;
         margin-bottom: 15px;
     }
     
@@ -2208,7 +2212,7 @@ footer {
     }
 
     .hero-content-logo {
-        height: 60px;
+        height: 176px;
     }
 }
 
@@ -2278,7 +2282,7 @@ footer {
     }
 
     .hero-content-logo {
-        height: 50px;
+        height: 146px;
     }
 }
 
