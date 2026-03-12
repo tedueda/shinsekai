@@ -35,7 +35,10 @@ header {
 }
 
 /* 固定ヘッダー下にページタイトルが隠れないよう余白を確保 */
-.page-header { margin-top: var(--fixed-header-h); }
+.page-header { 
+  margin-top: calc(var(--fixed-header-h) + 40px);
+  padding-top: 20px;
+}
 
 @media (max-width: 768px) {
   :root { --fixed-header-h: 76px; }
