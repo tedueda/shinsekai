@@ -1016,3 +1016,22 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 });
+
+// 特長セクションのトグル機能
+document.addEventListener('DOMContentLoaded', () => {
+    const featureTitles = document.querySelectorAll('.feature-title');
+    console.log('特長タイトル数:', featureTitles.length);
+    
+    featureTitles.forEach((title, index) => {
+        title.addEventListener('click', function(e) {
+            console.log('特長' + (index + 1) + 'がクリックされました');
+            const featureItem = this.closest('.feature-item');
+            if (featureItem) {
+                featureItem.classList.toggle('active');
+                console.log('activeクラス:', featureItem.classList.contains('active'));
+            } else {
+                console.error('feature-itemが見つかりません');
+            }
+        });
+    });
+});

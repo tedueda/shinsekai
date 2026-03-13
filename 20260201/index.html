@@ -22,10 +22,10 @@
     <meta name="twitter:creator" content="@StudioQ080">
     <link rel="canonical" href="https://studioq.co.jp">
     <title>大阪｜SHINSEKAI – プロフェッショナルバーチャルスタジオ 4Kグリーンスクリーン撮影</title>
-    <link rel="stylesheet" href="/_site/style.css?v=20250828-1710">
+    <link rel="stylesheet" href="_site/style.css?v=20260313-1152">
     <!-- プリロードとキャッシュ制御 -->
-    <link rel="preload" href="/_site/style.css?v=20250828-1710" as="style">
-    <link rel="preload" href="/_site/script.js?v=20250821-1456" as="script">
+    <link rel="preload" href="_site/style.css?v=20260313-1152" as="style">
+    <link rel="preload" href="_site/script.js?v=20250821-1456" as="script">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <!-- ページの読み込み速度向上のためにFontAwesomeをプリロード -->
     <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
@@ -294,14 +294,22 @@
                 </div>
             </div>
         </div>
+        
+        <!-- モバイル専用ボタンエリア（info-barの直前） -->
+        <div class="mobile-hero-actions">
+            <a href="#contact" class="btn btn-primary">スタジオ予約</a>
+            <a href="/studio_fee.html" class="btn btn-secondary">料金プラン</a>
+        </div>
     </section>
 
     <!-- スタジオについて -->
     <section id="about" class="about">
         <div class="container">
-            <h2 class="section-title">Virtual Creation Studio<br>SHINSEKAI</h2>
+            <h2 class="section-title" style="color: #39ff14;">Virtual Creation Studio<br>SHINSEKAI</h2>
 
             <p class="section-subtitle">リアルとバーチャルが生み出す新しい世界<br>AI・3D・バーチャル合成と人間の感性が融合する<br>未来型クリエイションスタジオ<br><small>※旧名称：Studio Q</small></p>
+
+            <h2 class="section-title" style="color: #39ff14; margin-top: 60px;">ーSHINSEKAI 制作ー</h2>
 
         </div>
     </section>
@@ -311,53 +319,77 @@
         <div class="container">
             <div class="studio-intro-container">
                 <div class="video-wrapper">
+                    <div class="video-item">
+                        <div class="video-thumbnail"
+                            data-video-url="https://test.studioq.co.jp/wp-content/uploads/2026/03/TENGOKU.mp4"
+                            aria-label="SHINSEKAI紹介動画">
+                            <img src="images/tengoku_sum.png" alt="SHINSEKAI 4Kグリーンスクリーン撮影風景" loading="lazy">
+                            <div class="play-button">
+                                <i class="fas fa-play"></i>
+                            </div>
+                            <div class="neon-border"></div>
+                        </div>
+                        <p class="video-caption">「TENGOKU」田中天国</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 4つの動画を2×2で配置 -->
+            <div class="video-grid" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin-top: 40px; max-width: 1000px; margin-left: auto; margin-right: auto;">
+                <!-- 上段左：Everything is You -->
+                <div class="video-item">
                     <div class="video-thumbnail"
-                        data-video-url="https://test.studioq.co.jp/wp-content/uploads/2026/03/TENGOKU.mp4"
-                        aria-label="SHINSEKAI紹介動画">
-                        <img src="images/tengoku_sum.png" alt="SHINSEKAI 4Kグリーンスクリーン撮影風景" loading="lazy">
+                        data-video-url="https://test.studioq.co.jp/wp-content/uploads/2026/03/Everything-is-You-1.mp4"
+                        aria-label="Everything is You">
+                        <img src="images/Everything_is_you_sum.png" alt="Everything is You" loading="lazy">
                         <div class="play-button">
                             <i class="fas fa-play"></i>
                         </div>
                         <div class="neon-border"></div>
                     </div>
-                </div>
-            </div>
-            
-            <h2 class="section-title" style="color: #39ff14; margin: 40px auto 20px;">Takeshi Yamaguchi X AI</h2>
-            
-            <!-- 3つの動画を横並びで配置 -->
-            <div class="video-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 40px; max-width: 1200px; margin-left: auto; margin-right: auto;">
-                <!-- 左：BECAUSE_RB -->
-                <div class="video-thumbnail"
-                    data-video-url="https://test.studioq.co.jp/wp-content/uploads/2026/03/BECAUSE-RB.mp4"
-                    aria-label="BECAUSE RB">
-                    <img src="images/because_rb_sum.png" alt="BECAUSE RB" loading="lazy">
-                    <div class="play-button">
-                        <i class="fas fa-play"></i>
-                    </div>
-                    <div class="neon-border"></div>
+                    <p class="video-caption">「Everything is You」　Takeshi Yamaguchi</p>
                 </div>
                 
-                <!-- 真ん中：BECAUSE-Hiphop -->
-                <div class="video-thumbnail"
-                    data-video-url="https://test.studioq.co.jp/wp-content/uploads/2026/03/BECAUSE-Hiphop.mp4"
-                    aria-label="BECAUSE Hiphop">
-                    <img src="images/because_hp_sum.png" alt="BECAUSE Hiphop" loading="lazy">
-                    <div class="play-button">
-                        <i class="fas fa-play"></i>
+                <!-- 上段右：BECAUSE Hiphop -->
+                <div class="video-item">
+                    <div class="video-thumbnail"
+                        data-video-url="https://test.studioq.co.jp/wp-content/uploads/2026/03/BECAUSE_Hiphop.mp4"
+                        aria-label="BECAUSE Hiphop">
+                        <img src="images/Because_hiphop_sum.png" alt="BECAUSE Hiphop" loading="lazy">
+                        <div class="play-button">
+                            <i class="fas fa-play"></i>
+                        </div>
+                        <div class="neon-border"></div>
                     </div>
-                    <div class="neon-border"></div>
+                    <p class="video-caption">「BECAUSE Hiphop ver.」　Takeshi Yamaguchi</p>
                 </div>
                 
-                <!-- 右：Everything-is-You -->
-                <div class="video-thumbnail"
-                    data-video-url="https://test.studioq.co.jp/wp-content/uploads/2026/03/Everything-is-You.mp4"
-                    aria-label="Everything is You">
-                    <img src="images/everything_sum.png" alt="Everything is You" loading="lazy">
-                    <div class="play-button">
-                        <i class="fas fa-play"></i>
+                <!-- 下段左：バーチャルコスプレ -->
+                <div class="video-item">
+                    <div class="video-thumbnail"
+                        data-video-url="https://test.studioq.co.jp/wp-content/uploads/2026/03/kuroki.mp4"
+                        aria-label="バーチャルコスプレ">
+                        <img src="images/kuroki.JPG" alt="SHINSEKAI バーチャルコスプレ撮影事例" loading="lazy">
+                        <div class="play-button">
+                            <i class="fas fa-play"></i>
+                        </div>
+                        <div class="neon-border"></div>
                     </div>
-                    <div class="neon-border"></div>
+                    <p class="video-caption">「バーチャルコスプレ　黒畿ひつじチーム」</p>
+                </div>
+                
+                <!-- 下段右：AIスクール -->
+                <div class="video-item">
+                    <div class="video-thumbnail"
+                        data-video-url="https://test.studioq.co.jp/wp-content/uploads/2025/05/AIマスター講座-1.mp4"
+                        aria-label="AIスクール">
+                        <img src="images/ai_school.png" alt="SHINSEKAI AIスクール" loading="lazy">
+                        <div class="play-button">
+                            <i class="fas fa-play"></i>
+                        </div>
+                        <div class="neon-border"></div>
+                    </div>
+                    <p class="video-caption">「AIクリエイター総合塾」　eラーニング</p>
                 </div>
             </div>
         </div>
@@ -371,7 +403,7 @@
             <div class="video-wrapper">
                 <div class="video-item">
                     <div class="latest-video-thumbnail"
-                        data-video-url="https://test.studioq.co.jp/wp-content/uploads/2025/07/music.pv-４-1-1.mp4">
+                        data-video-url="https://test.studioq.co.jp/wp-content/uploads/2026/03/music.pv5-1.mp4">
                         <img src="images/band01.JPG" alt="SHINSEKAI 音楽映像作品" loading="eager"
                             style="width: 100%; height: auto; display: block;">
                         <div class="play-button">
@@ -383,57 +415,42 @@
         </div>
     </section>
 
-    <!-- ギャラリー -->
-    <section id="gallery" class="gallery">
-        <div class="container">
-            <h2 class="section-title">スタジオでの利用事例</h2>
-
-            <div class="gallery-grid">
-                <div class="gallery-item video-gallery-item">
-                    <div class="gallery-video-thumbnail"
-                        data-video-url="https://test.studioq.co.jp/wp-content/uploads/2025/07/kuroki.mp4">
-                        <img src="images/kuroki.JPG" alt="SHINSEKAI アイドル撮影事例 - アイドルの夢、実現プロジェクト" loading="lazy">
-                        <div class="play-button">
-                            <i class="fas fa-play"></i>
-                        </div>
-                    </div>
-                </div>
-                <div class="gallery-item video-gallery-item">
-                    <div class="gallery-video-thumbnail"
-                        data-video-url="https://test.studioq.co.jp/wp-content/uploads/2025/05/AIマスター講座-1.mp4"
-                        data-background="images/school.jpg">
-                        <div class="play-button">
-                            <i class="fas fa-play"></i>
-                        </div>
-                    </div>
-                </div>
-                            </div>
-        </div>
-    </section>
-
     <!-- SHINSEKAIの特長 -->
     <section id="features" class="features">
         <div class="container">
-            <h2 class="section-title">SHINSEKAIはこんなスタジオです</h2>
+            <h2 class="section-title" style="color: #39ff14;">SHINSEKAIの特徴</h2>
 
             <div class="feature-item">
-                <h3 class="feature-title">特長１ 同録対応・完全防音スタジオ</h3>
+                <h3 class="feature-title">特長1　天井高5mの本格グリーンバックスタジオ</h3>
+                <p class="feature-description">ダイナミックな構図や奥行きのある映像表現が可能。<br>音楽、歌舞伎、コスプレ、PR動画や医療シンポジウムなどあらゆる撮影ができます。</p>
             </div>
 
             <div class="feature-item">
-                <h3 class="feature-title">特長２ バーチャル撮影と音楽LIVEが可能なハイブリッドスタジオ</h3>
+                <h3 class="feature-title">特長2　完全防音仕様で同時録音にも対応</h3>
+                <p class="feature-description">防音環境が整っているため、映像と音声を同時に高品質で収録可能。<br>別撮りの手間を減らし、時間とコストの削減につながります。</p>
             </div>
 
             <div class="feature-item">
-                <h3 class="feature-title">特長３ 撮影シーンに応じて様々な背景へ変更</h3>
+                <h3 class="feature-title">特長3　高性能な配信設備で国内外へリアルタイム発信</h3>
+                <p class="feature-description">高品質なライブ配信設備を備え、海外とのシンポジウムや生配信ライブにも対応。<br>配信設備を活用した中継拠点としての利用も可能です。</p>
             </div>
 
             <div class="feature-item">
-                <h3 class="feature-title">特長４ 映像・音響・照明の全ての機材を常設完備</h3>
+                <h3 class="feature-title">特長4　最新の映像・音響・照明機材を完備</h3>
+                <p class="feature-description">撮影に必要な機材がそろっているため、機材の持ち込み負担を軽減。<br>ミュージックビデオやPR動画をスムーズかつ高品質に制作できます。</p>
             </div>
 
-            <div class="feature-item">
-                <h3 class="feature-title">特長５ ステンドグラスの開放感あふれるラウンジとメイク室</h3>
+            <h2 class="section-title" style="color: #39ff14; margin-top: 60px;">主な撮影事例</h2>
+            
+            <div class="use-cases">
+                <ul class="use-case-list">
+                    <li class="use-case-item">某大手テーマパークの人気アトラクションのバーチャル合成撮影</li>
+                    <li class="use-case-item">大手家電メーカーの商品PR動画をバーチャル撮影</li>
+                    <li class="use-case-item">人気アーティスト × 有名DJによる遠隔ライブ対談番組を生配信</li>
+                    <li class="use-case-item">日中をつなぐ医療シンポジウムを同時通訳付きでオンライン開催</li>
+                    <li class="use-case-item">大手製薬会社による医薬品PR・説明動画を高品質に撮影</li>
+                    <li class="use-case-item">レジェンドJazzミュージシャンの臨場感あふれるライブ収録</li>
+                </ul>
             </div>
         </div>
     </section>
@@ -468,7 +485,7 @@
                 </div>
                 <div class="contact-info">
                     <h3>お問い合わせ・ご予約</h3>
-                    <p>Studio Q</p>
+                    <p>SHINSEKAI</p>
                     <p>〒556-0003</p>
                     <p>大阪府大阪市浪速区恵美須西３−２−４ ２F</p>
                     <p class="access-info">最寄り駅</p>
@@ -546,9 +563,6 @@
                         <a href="https://www.facebook.com/0804studioq" target="_blank" rel="noopener"
                             title="Studio Q Facebook公式ページ"><i class="fab fa-facebook" aria-hidden="true"></i><span
                                 class="sr-only">Facebook</span></a>
-                        <a href="https://twitter.com/StudioQ080" target="_blank" rel="noopener"
-                            title="Studio Q Twitter公式アカウント"><i class="fab fa-x-twitter" aria-hidden="true"></i><span
-                                class="sr-only">Twitter</span></a>
                         <a href="https://www.instagram.com/studioq0804" target="_blank" rel="noopener"
                             title="Studio Q Instagram公式アカウント"><i class="fab fa-instagram" aria-hidden="true"></i><span
                                 class="sr-only">Instagram</span></a>
@@ -572,7 +586,7 @@
         </div>
         </section>
 
-        <script src="/_site/script.js?v=20250918-1848"></script>
+        <script src="_site/script.js?v=20250918-1848"></script>
         <!-- トップページでも外部取得を排除するため、BLOG_DATAをインライン化 -->
         <script>
             window.BLOG_DATA = {
