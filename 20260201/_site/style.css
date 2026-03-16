@@ -12,6 +12,11 @@
     --box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
 }
 
+/* reCAPTCHAバッジを非表示 */
+.grecaptcha-badge {
+    visibility: hidden !important;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -526,36 +531,36 @@ nav ul li a:hover::after {
 }
 
 .slide-overlay.from-green-900\/50.via-green-600\/30.to-black\/90 {
-    /* 黒を基調としたオーバーレイ */
-    background: linear-gradient(135deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.6));
+    /* オーバーレイなし */
+    background: transparent;
     box-shadow: none;
     border-bottom: none;
 }
 
 .slide-overlay.from-blue-900\/50.via-purple-600\/30.to-black\/90 {
-    /* 黒を基調としたオーバーレイ */
-    background: linear-gradient(135deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.6));
+    /* オーバーレイなし */
+    background: transparent;
     box-shadow: none;
     border-bottom: none;
 }
 
 .slide-overlay.from-purple-900\/50.via-pink-600\/30.to-black\/90 {
-    /* 黒を基調としたオーバーレイ */
-    background: linear-gradient(135deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.6));
+    /* オーバーレイなし */
+    background: transparent;
     box-shadow: none;
     border-bottom: none;
 }
 
 .slide-overlay.from-amber-900\/50.via-yellow-600\/30.to-black\/90 {
-    /* 黒を基調としたオーバーレイ */
-    background: linear-gradient(135deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.6));
+    /* オーバーレイなし */
+    background: transparent;
     box-shadow: none;
     border-bottom: none;
 }
 
 .slide-overlay.from-teal-900\/50.via-teal-600\/30.to-black\/90 {
-    /* 黒を基調としたオーバーレイ */
-    background: linear-gradient(135deg, rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0.05));
+    /* オーバーレイなし */
+    background: transparent;
     box-shadow: none;
     border-bottom: none;
 }

@@ -3,6 +3,7 @@
 
 <head>
   <link rel="icon" type="image/png" href="images/favicon.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="完全防音＆5m天井のプロフェッショナルバーチャル撮影スタジオ（大阪）。4K配信や音声収録も対応。今すぐ見学予約はこちら！">
@@ -11,7 +12,7 @@
     <meta name="author" content="SHINSEKAI">
     <meta property="og:title" content="SHINSEKAI - プロフェッショナルバーチャルスタジオ">
     <meta property="og:description" content="最新の4K映像制作設備と高品質グリーンスクリーンを備えたプロフェッショナルなバーチャルスタジオ。天井高5M、広大なスペース、防音設備を完備。">
-    <meta property="og:image" content="images/studioq_logo_white.png">
+    <meta property="og:image" content="https://studioq.co.jp/images/hero_mb1.png">
     <!-- ソーシャルメディア共有用の大きな画像を設定 -->
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
@@ -26,7 +27,7 @@
     <link rel="stylesheet" href="_site/style.css?v=20260314-0918">
     <!-- プリロードとキャッシュ制御 -->
     <link rel="preload" href="_site/style.css?v=20260314-0918" as="style">
-    <link rel="preload" href="_site/script.js?v=20260314-0918" as="script">
+    <link rel="preload" href="_site/form-handler.js?v=20260317-0700" as="script">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <!-- ページの読み込み速度向上のためにFontAwesomeをプリロード -->
     <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
@@ -161,8 +162,6 @@
         }
     </style>
 
-    <!-- Google reCAPTCHA v3 -->
-    <script src="https://www.google.com/recaptcha/api.js?render=6LcWv_srAAAAAOC4p5xFd2tQRMZRnRW_AbHoHVTV"></script>
 </head>
 
 <body>
@@ -477,9 +476,9 @@
             <div class="contact-content">
                 <div class="contact-image">
                     <div class="map-thumbnail">
-                        <iframe
-                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3282.1352704317824!2d135.50157587636653!3d34.65128658586151!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6000e7604b995555%3A0x5a93ec41d6b4b9!2Z5qCE5YWJ44Kt44Oq44K544OI44OT44Or!5e0!3m2!1sja!2sjp!4v1694298661488!5m2!1sja!2sjp"
-                            title="Studio Q 大阪市浪速区恵美須西の地図" allowfullscreen="" class="google-map"></iframe>
+                        <a href="https://maps.app.goo.gl/JRi8f2McmNqVJ3Hk9" target="_blank" rel="noopener noreferrer">
+                            <img src="images/map01.webp" alt="SHINSEKAI アクセスマップ - 周辺施設案内" class="custom-map" style="width: 100%; height: auto; border-radius: 10px; cursor: pointer;">
+                        </a>
                     </div>
                 </div>
                 <div class="contact-info">
@@ -490,14 +489,14 @@
                     <p class="access-info">最寄り駅</p>
                     <p>大阪メトロ（地下鉄）御堂筋・堺筋線 動物園前駅</p>
                     <p>6番出口（徒歩4分）</p>
-                    <p>JR環状線新今宮駅 通天閣口（徒歩4分）</p>
+                    <p>JR環状線 新今宮駅 通天閣口（徒歩３分）</p>
                     <p><i class="fas fa-phone"></i> TEL 06-6978-8122</p>
                     <p><i class="fas fa-fax"></i> FAX 06-6978-8123</p>
                 </div>
             </div>
 
             <div class="contact-form">
-                <form id="contactForm" action="/_site/send_mail.php" method="POST">
+                <form id="contactForm" action="/_site/send_mail_v2.php" method="POST">
                     <!-- タイムスタンプ（スパム対策：フォーム表示時刻を記録） -->
                     <input type="hidden" name="form_timestamp" id="formTimestamp" value="">
 
@@ -505,9 +504,6 @@
                     <input type="text" name="website" id="website" autocomplete="off"
                         style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;"
                         tabindex="-1">
-
-                    <!-- reCAPTCHA v3トークン -->
-                    <input type="hidden" name="recaptcha_token" id="recaptchaToken" value="">
 
                     <div class="form-group">
                         <input type="text" name="name" placeholder="お名前" required>
@@ -522,11 +518,6 @@
                         <textarea name="message" placeholder="お問い合わせ内容" rows="5" required></textarea>
                     </div>
                     <button type="submit" class="btn">送信する</button>
-                    <p style="font-size: 0.85rem; color: #666; margin-top: 10px;">
-                        このサイトはreCAPTCHAによって保護されており、Googleの
-                        <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">プライバシーポリシー</a>と
-                        <a href="https://policies.google.com/terms" target="_blank" rel="noopener">利用規約</a>が適用されます。
-                    </p>
                 </form>
             </div>
         </div>
@@ -586,6 +577,7 @@
         </section>
 
         <script src="_site/script.js?v=20260314-0918"></script>
+        <script src="_site/form-handler.js?v=20260317-0700"></script>
         <!-- トップページでも外部取得を排除するため、BLOG_DATAをインライン化 -->
         <script>
             window.BLOG_DATA = {

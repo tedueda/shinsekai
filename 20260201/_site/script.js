@@ -992,25 +992,9 @@ document.addEventListener('DOMContentLoaded', () => {
             const formLoadTime = parseInt(timestampField.value);
             const timeDiff = (currentTime - formLoadTime) / 1000; // 秒単位
             
-            if (timeDiff < 3) {
+            if (Number.isFinite(timeDiff) && timeDiff < 1) {
                 e.preventDefault();
                 alert('送信が早すぎます。もう一度お試しください。');
-                return false;
-            }
-            
-            // reCAPTCHA v3トークンの取得
-            e.preventDefault();
-            const recaptchaToken = document.getElementById('recaptchaToken');
-            
-            try {
-                const token = await grecaptcha.execute('6LcWv_srAAAAAOC4p5xFd2tQRMZRnRW_AbHoHVTV', {action: 'submit'});
-                recaptchaToken.value = token;
-                
-                // トークン取得後、フォームを送信
-                contactForm.submit();
-            } catch (error) {
-                console.error('reCAPTCHAエラー:', error);
-                alert('送信に失敗しました。もう一度お試しください。');
                 return false;
             }
         });
