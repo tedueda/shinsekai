@@ -476,9 +476,9 @@
             <div class="contact-content">
                 <div class="contact-image">
                     <div class="map-thumbnail">
-                        <a href="https://maps.app.goo.gl/JRi8f2McmNqVJ3Hk9" target="_blank" rel="noopener noreferrer">
+                        <button type="button" class="map-popup-trigger" aria-haspopup="dialog" aria-controls="mapModal">
                             <img src="images/map01.webp" alt="SHINSEKAI アクセスマップ - 周辺施設案内" class="custom-map" style="width: 100%; height: auto; border-radius: 10px; cursor: pointer;">
-                        </a>
+                        </button>
                     </div>
                 </div>
                 <div class="contact-info">
@@ -522,6 +522,17 @@
             </div>
         </div>
     </section>
+
+    <div class="map-modal" id="mapModal" aria-hidden="true">
+        <div class="map-modal-backdrop" data-map-close></div>
+        <div class="map-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="mapModalTitle">
+            <button type="button" class="map-modal-close" aria-label="地図を閉じる" data-map-close>
+                <i class="fas fa-times" aria-hidden="true"></i>
+            </button>
+            <h3 id="mapModalTitle" class="map-modal-title">アクセスマップ</h3>
+            <img src="images/map01.webp" alt="SHINSEKAI アクセスマップ拡大表示" class="map-modal-image">
+        </div>
+    </div>
 
 
     <!-- フッター -->
