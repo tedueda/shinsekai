@@ -2879,3 +2879,135 @@ footer {
     .pricing-table td { border-right: none !important; border-bottom: 1px solid rgba(255,255,255,0.12); padding: 12px 14px; }
     .pricing-table td:last-child { border-bottom: none; }
 }
+
+/* AIスクールPRオーバーレイ */
+.ai-school-pr-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.85);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    z-index: 10;
+}
+
+.ai-school-pr-overlay.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.ai-school-pr-box {
+    position: relative;
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+    border: 2px solid #39ff14;
+    border-radius: 20px;
+    padding: 40px 50px;
+    max-width: 500px;
+    width: 90%;
+    box-shadow: 0 20px 60px rgba(57, 255, 20, 0.3),
+                0 0 40px rgba(57, 255, 20, 0.2);
+    animation: prSlideUp 0.4s ease-out;
+}
+
+@keyframes prSlideUp {
+    from {
+        transform: translateY(30px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.ai-school-pr-content {
+    text-align: center;
+}
+
+.ai-school-pr-title {
+    color: #39ff14;
+    font-size: 1.8rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-shadow: 0 0 10px rgba(57, 255, 20, 0.5);
+}
+
+.ai-school-pr-text {
+    color: #fff;
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: 30px;
+}
+
+.ai-school-pr-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 15px 35px;
+    background: linear-gradient(135deg, #39ff14 0%, #2ecc71 100%);
+    color: #000;
+    font-size: 1.1rem;
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: 50px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(57, 255, 20, 0.4);
+}
+
+.ai-school-pr-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 25px rgba(57, 255, 20, 0.6);
+    background: linear-gradient(135deg, #2ecc71 0%, #39ff14 100%);
+}
+
+.ai-school-pr-button i {
+    transition: transform 0.3s ease;
+}
+
+.ai-school-pr-button:hover i {
+    transform: translateX(5px);
+}
+
+.ai-school-pr-close {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    width: 36px;
+    height: 36px;
+    border: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ai-school-pr-close:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: rotate(90deg);
+}
+
+@media (max-width: 768px) {
+    .ai-school-pr-box {
+        padding: 30px 25px;
+    }
+
+    .ai-school-pr-title {
+        font-size: 1.5rem;
+    }
+
+    .ai-school-pr-text {
+        font-size: 1rem;
+    }
+
+    .ai-school-pr-button {
+        padding: 12px 28px;
+        font-size: 1rem;
+    }
+}

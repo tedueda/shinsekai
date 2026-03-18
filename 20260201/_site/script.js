@@ -909,6 +909,15 @@ document.addEventListener('DOMContentLoaded', () => {
         activeOverlay = overlay;
         activeVideoEl = videoElement;
 
+        // AIスクール動画の場合、終了時にPRを表示
+        if (videoUrl.includes('school_ai.mp4') && videoElement.tagName === 'VIDEO') {
+            videoElement.addEventListener('ended', () => {
+                setTimeout(() => {
+                    showAISchoolPR(overlay);
+                }, 2000);
+            });
+        }
+
         // Escキーで閉じる
         
         // クリック直後の即時再生を確実に試みる
@@ -932,6 +941,66 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         };
         document.addEventListener('keydown', escKeyHandler);
+    }
+
+    // AIスクールPRオーバーレイを表示する関数
+    function showAISchoolPR(overlay) {
+        if (!overlay || !overlay.parentNode) return;
+
+        // 既存のPRがあれば削除
+        const existingPR = overlay.querySelector('.ai-school-pr-overlay');
+        if (existingPR) {
+            existingPR.remove();
+        }
+
+        // PRオーバーレイを作成
+        const prOverlay = document.createElement('div');
+        prOverlay.className = 'ai-school-pr-overlay';
+        
+        const prBox = document.createElement('div');
+        prBox.className = 'ai-school-pr-box';
+        
+        prBox.innerHTML = `
+            <div class="ai-school-pr-content">
+                <h3 class="ai-school-pr-title">もっと学びたい方へ！</h3>
+                <p class="ai-school-pr-text">AIクリエイター総合塾で<br>本格的なスキルを身につけませんか？</p>
+                <a href="https://all.studioq.co.jp" target="_blank" rel="noopener noreferrer" class="ai-school-pr-button">
+                    AIスクールサイトへ
+                    <i class="fas fa-arrow-right"></i>
+                </a>
+                <button class="ai-school-pr-close" aria-label="閉じる">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        `;
+        
+        prOverlay.appendChild(prBox);
+        overlay.appendChild(prOverlay);
+        
+        // フェードイン表示
+        setTimeout(() => {
+            prOverlay.classList.add('show');
+        }, 100);
+        
+        // 閉じるボタンのイベント
+        const closeBtn = prBox.querySelector('.ai-school-pr-close');
+        closeBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            prOverlay.classList.remove('show');
+            setTimeout(() => {
+                prOverlay.remove();
+            }, 300);
+        });
+        
+        // オーバーレイクリックで閉じる
+        prOverlay.addEventListener('click', (e) => {
+            if (e.target === prOverlay) {
+                prOverlay.classList.remove('show');
+                setTimeout(() => {
+                    prOverlay.remove();
+                }, 300);
+            }
+        });
     }
 });
 
