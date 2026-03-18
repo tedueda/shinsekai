@@ -964,7 +964,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <div class="ai-school-pr-content">
                 <h3 class="ai-school-pr-title">もっと学びたい方へ！</h3>
                 <p class="ai-school-pr-text">AIクリエイター総合塾で<br>本格的なスキルを身につけませんか？</p>
-                <a href="https://all.studioq.co.jp" target="_blank" rel="noopener noreferrer" class="ai-school-pr-button">
+                <a href="https://all.studioq.co.jp/home" target="_blank" rel="noopener noreferrer" class="ai-school-pr-button">
                     AIスクールサイトへ
                     <i class="fas fa-arrow-right"></i>
                 </a>
