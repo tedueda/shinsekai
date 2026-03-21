@@ -146,13 +146,22 @@ figure figcaption {
   color: #fff;
 }
 
+/* テーブルをラップするコンテナ（モバイルで横スクロール） */
+.table-wrap {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  border-radius: 10px;
+  border: 1px solid var(--line);
+}
+
 table {
   width: 100%;
+  min-width: 600px;
   border-collapse: collapse;
   background: #101418;
-  border: 1px solid var(--line);
-  border-radius: 10px;
-  overflow: hidden;
+  border: none;
+  border-radius: 0;
 }
 
 thead {
@@ -164,6 +173,12 @@ td {
   padding: 10px 12px;
   border-bottom: 1px solid var(--line);
   vertical-align: top;
+  white-space: nowrap;
+}
+
+td:nth-child(2) {
+  white-space: normal;
+  min-width: 200px;
 }
 
 th {
@@ -173,6 +188,13 @@ th {
 
 tbody tr:hover {
   background: rgba(255, 255, 255, .03);
+}
+
+@media (max-width: 768px) {
+  th, td {
+    padding: 8px 10px;
+    font-size: 14px;
+  }
 }
 
 .note {

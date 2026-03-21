@@ -6,8 +6,8 @@
     <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="完全防音＆5m天井のプロフェッショナルバーチャル撮影スタジオ（大阪）。4K配信や音声収録も対応。今すぐ見学予約はこちら！">
-    <meta name="keywords" content="SHINSEKAI,バーチャルスタジオ,グリーンスクリーン,4K映像制作,ライブ配信,撮影スタジオ,東京">
+    <meta name="description" content="完全防音と天井高5ｍのバーチャル撮影スタジオ（大阪）。同録撮影や4K配信も対応。今すぐ見学予約はこちら！">
+    <meta name="keywords" content="SHINSEKAI,shinsekai,シンセカイ,新世界,Studio Q,スタジオQ,バーチャルスタジオ,グリーンスクリーン,4K映像制作,ライブ配信,撮影スタジオ,大阪,防音スタジオ,同録撮影,バーチャルプロダクション">
     <meta name="robots" content="index, follow">
     <meta name="author" content="SHINSEKAI">
     <meta property="og:title" content="SHINSEKAI - プロフェッショナルバーチャルスタジオ">
@@ -23,15 +23,13 @@
     <meta name="twitter:site" content="@StudioQ080">
     <meta name="twitter:creator" content="@StudioQ080">
     <link rel="canonical" href="https://studioq.co.jp">
-    <title>大阪｜SHINSEKAI – プロフェッショナルバーチャルスタジオ 4Kグリーンスクリーン撮影</title>
+    <title>大阪｜SHINSEKAI – プロフェッショナルバーチャルスタジオ 4Kグリーンスクリーン撮影（旧Studio Q）</title>
     <link rel="stylesheet" href="_site/style.css?v=20260318-1744">
     <!-- プリロードとキャッシュ制御 -->
     <link rel="preload" href="_site/style.css?v=20260318-1744" as="style">
     <link rel="preload" href="_site/form-handler.js?v=20260318-1744" as="script">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <!-- ページの読み込み速度向上のためにFontAwesomeをプリロード -->
-    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
-        as="style">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" media="print" onload="this.media='all'">
+    <script src="https://www.google.com/recaptcha/api.js?render=6Lcq9ZEsAAAAAERRU2QnIxp414iYCMlATX7wjy5I" async defer></script>
 
 
     <!-- モバイル表示用のインラインスタイル -->
@@ -71,7 +69,8 @@
       "@context": "https://schema.org",
       "@type": "LocalBusiness",
       "name": "SHINSEKAI",
-      "image": "images/studioq_logo_white.png",
+      "alternateName": "Studio Q",
+      "image": "https://studioq.co.jp/images/hero_mb1.png",
       "description": "完全防音＆5m天井のプロフェッショナルバーチャル撮影スタジオ（大阪）。4K配信や音声収録も対応。",
       "address": {
         "@type": "PostalAddress",
@@ -189,115 +188,76 @@
 
     <!-- ヒーローセクション -->
     <section id="hero" class="hero">
-        <div class="slideshow-container">
-            <div class="slide active"
-                data-background="images/hero_mucis02.png"
-                data-src="images/hero_mucis02.png">
-                <div class="slide-overlay from-green-900/50 via-green-600/30 to-black/90">
-
-                    <div class="slide-content">
-                        <img src="images/SHINSEKAI_logo2.png?v=20260313" alt="大阪・SHINSEKAI｜プロフェッショナルバーチャルスタジオ"
-                            class="hero-content-logo" loading="eager">
-
-                        <p class="subtitle">最新の4Kバーチャル映像制作</p>
-                        <p class="specs">天井高5M × 防音設備</p>
-                        <div class="hero-actions">
-                            <a href="#contact" class="btn btn-primary">スタジオ予約</a>
-                            <a href="/studio_fee.html" class="btn btn-secondary">料金プラン</a>
-                        </div>
-                    </div>
+        <div class="hero-video-container">
+            <video class="hero-video hero-video-desktop" autoplay muted loop playsinline preload="auto"
+                poster="images/hero_mucis02.png">
+                <source src="images/hero-video.mp4" type="video/mp4">
+            </video>
+            <video class="hero-video hero-video-mobile" autoplay muted loop playsinline preload="auto"
+                poster="images/hero_mucis02.png">
+                <source src="images/hero-video-mobile.mp4" type="video/mp4">
+            </video>
+            <div class="hero-video-overlay" id="heroOverlay" style="opacity:0;pointer-events:none;transition:opacity 0.8s ease;">
+                <div class="hero-actions">
+                    <a href="#contact" class="btn btn-primary">スタジオ予約</a>
+                    <a href="/studio_fee.html" class="btn btn-secondary">料金プラン</a>
                 </div>
             </div>
-            <div class="slide"
-                data-background="images/hero_kabuki02.png"
-                data-src="images/hero_kabuki02.png">
-                <div class="slide-overlay from-blue-900/50 via-purple-600/30 to-black/90">
-
-                    <div class="slide-content">
-                        <img src="images/SHINSEKAI_logo2.png?v=20260313" alt="大阪・SHINSEKAI｜プロフェッショナルバーチャルスタジオ"
-                            class="hero-content-logo" loading="eager">
-
-                        <p class="subtitle">SONY4Kマルチアングル撮影</p>
-                        <p class="specs">SONY PTZ × PXW-Z190</p>
-                        <div class="hero-actions">
-                            <a href="#contact" class="btn btn-primary">スタジオ予約</a>
-                            <a href="studio_fee.html" class="btn btn-secondary">料金プラン</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="slide slide-contain" data-background="images/hero_anime06.png" data-src="images/hero_anime06.png">
-                <div class="slide-overlay from-purple-900/50 via-pink-600/30 to-black/90">
-
-                    <div class="slide-content">
-                        <img src="images/SHINSEKAI_logo2.png?v=20260313" alt="大阪・SHINSEKAI｜プロフェッショナルバーチャルスタジオ"
-                            class="hero-content-logo" loading="eager">
-
-                        <p class="subtitle">プロ仕様RGB LED照明</p>
-                        <p class="specs">調光機能 × DMXコントロール</p>
-                        <div class="hero-actions">
-                            <a href="#contact" class="btn btn-primary">スタジオ予約</a>
-                            <a href="studio_fee.html" class="btn btn-secondary">料金プラン</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="slide"
-                data-background="images/hero_cosplay03.PNG"
-                data-src="images/hero_cosplay03.PNG">
-                <div class="slide-overlay from-amber-900/50 via-yellow-600/30 to-black/90">
-
-                    <div class="slide-content">
-                        <img src="images/SHINSEKAI_logo2.png?v=20260313" alt="大阪・SHINSEKAI｜プロフェッショナルバーチャルスタジオ"
-                            class="hero-content-logo" loading="eager">
-                        <p class="subtitle">高品質な配信環境</p>
-                        <p class="specs">高速回線 × Web Presenter</p>
-                        <div class="hero-actions">
-                            <a href="#contact" class="btn btn-primary">スタジオ予約</a>
-                            <a href="studio_fee.html" class="btn btn-secondary">料金プラン</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- スライドボタンを削除しました -->
-        </div>
-        <div class="hero-info-bar">
-            <div class="info-item">
-                <i class="fas fa-video"></i>
-                <div class="info-content">
-                    <span class="info-label">4K CAMERAS</span>
-                    <span class="info-value">SONY PTZ × 3台</span>
-                </div>
-            </div>
-            <div class="info-item">
-                <i class="fas fa-lightbulb"></i>
-                <div class="info-content">
-                    <span class="info-label">LIGHTING</span>
-                    <span class="info-value">RGB LED × 12台</span>
-                </div>
-            </div>
-            <div class="info-item">
-                <i class="fas fa-expand-alt"></i>
-                <div class="info-content">
-                    <span class="info-label">SPACE</span>
-                    <span class="info-value">天井高5M</span>
-                </div>
-            </div>
-            <div class="info-item">
-                <i class="fas fa-sliders-h"></i>
-                <div class="info-content">
-                    <span class="info-label">CONTROL</span>
-                    <span class="info-value">DMX対応</span>
-                </div>
-            </div>
-        </div>
-        
-        <!-- モバイル専用ボタンエリア（info-barの直前） -->
-        <div class="mobile-hero-actions">
-            <a href="#contact" class="btn btn-primary">スタジオ予約</a>
-            <a href="/studio_fee.html" class="btn btn-secondary">料金プラン</a>
+            <script>
+            (function(){
+                var o=document.getElementById('heroOverlay');
+                if(!o)return;
+                function show(){o.style.opacity='1';o.style.pointerEvents='auto';}
+                function hide(){o.style.opacity='0';o.style.pointerEvents='none';}
+                var bound=false;
+                function bindVideo(v){
+                    v.addEventListener('timeupdate',function(){
+                        var t=v.currentTime;
+                        if(t>=4.5&&t<23){show();}else{hide();}
+                    });
+                }
+                var videos=document.querySelectorAll('.hero-video');
+                videos.forEach(function(v){bindVideo(v);});
+                // フォールバック: 動画が再生されない場合6秒後にボタンを表示
+                setTimeout(function(){
+                    var anyPlaying=false;
+                    videos.forEach(function(v){if(!v.paused)anyPlaying=true;});
+                    if(!anyPlaying)show();
+                },6000);
+            })();
+            </script>
         </div>
     </section>
+    <div class="hero-info-bar">
+        <div class="info-item">
+            <i class="fas fa-video"></i>
+            <div class="info-content">
+                <span class="info-label">4K CAMERAS</span>
+                <span class="info-value">SONY PTZ × 3台</span>
+            </div>
+        </div>
+        <div class="info-item">
+            <i class="fas fa-lightbulb"></i>
+            <div class="info-content">
+                <span class="info-label">LIGHTING</span>
+                <span class="info-value">RGB LED × 12台</span>
+            </div>
+        </div>
+        <div class="info-item">
+            <i class="fas fa-expand-alt"></i>
+            <div class="info-content">
+                <span class="info-label">SPACE</span>
+                <span class="info-value">天井高5M</span>
+            </div>
+        </div>
+        <div class="info-item">
+            <i class="fas fa-sliders-h"></i>
+            <div class="info-content">
+                <span class="info-label">CONTROL</span>
+                <span class="info-value">DMX対応</span>
+            </div>
+        </div>
+    </div>
 
     <!-- スタジオについて -->
     <section id="about" class="about">
@@ -499,6 +459,8 @@
                 <form id="contactForm" action="/_site/send_mail_v2.php" method="POST">
                     <!-- タイムスタンプ（スパム対策：フォーム表示時刻を記録） -->
                     <input type="hidden" name="form_timestamp" id="formTimestamp" value="">
+                    <!-- reCAPTCHA v3 トークン -->
+                    <input type="hidden" name="g-recaptcha-response" id="recaptchaToken" value="">
 
                     <!-- ハニーポット（ボット対策用の不可視フィールド） -->
                     <input type="text" name="website" id="website" autocomplete="off"
