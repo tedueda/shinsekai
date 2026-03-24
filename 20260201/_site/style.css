@@ -504,7 +504,7 @@ nav ul li a:hover::after {
         object-fit: contain;
     }
     .hero-video-overlay {
-        bottom: 32%;
+        bottom: 18%;
     }
     .hero-video-overlay .hero-actions {
         gap: 12px;
@@ -521,7 +521,7 @@ nav ul li a:hover::after {
         min-height: 500px;
     }
     .hero-video-overlay {
-        bottom: 34%;
+        bottom: 20%;
     }
     .hero-video-overlay .hero-actions {
         gap: 10px;
@@ -2084,6 +2084,10 @@ iframe.popup-video {
     font-size: 0.9rem;
     color: #cccccc;
     margin-bottom: 20px;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
     line-height: 1.6;
     flex-grow: 1;
 }
@@ -2598,7 +2602,7 @@ footer {
     }
     
     .hero {
-        padding-top: 80px;
+        padding-top: 0;
         height: 100vh;
         min-height: 500px;
         position: relative;
@@ -2624,7 +2628,7 @@ footer {
     }
     
     .hero {
-        padding-top: 80px;
+        padding-top: 0;
         height: 100vh;
         min-height: 500px;
         display: flex;
@@ -2654,8 +2658,7 @@ footer {
         flex-wrap: nowrap;
         justify-content: space-around;
         padding: 15px 5px;
-        bottom: 0;
-        position: absolute;
+        position: relative;
         width: 100%;
         display: flex;
         align-items: center;

@@ -146,7 +146,7 @@ const IntroLogo: React.FC = () => {
   const frame = useCurrentFrame();
   const { width } = useVideoConfig();
   const isMobile = width < 1200;
-  const logoHeight = isMobile ? 220 : 280;
+  const logoHeight = isMobile ? 360 : 280;
 
   // ロゴの出現（走査線の中から浮かび上がる）
   const appearOpacity = interpolate(frame, [35, 65], [0, 1], {
@@ -169,7 +169,7 @@ const IntroLogo: React.FC = () => {
   });
 
   // スケール（小さいところから通常サイズへ、フェードアウト時に少し拡大）
-  const logoScale = interpolate(frame, [35, 75, 90, INTRO_DURATION], [0.6, 1.1, 1.1, 1.2], {
+  const logoScale = interpolate(frame, [35, 75, 90, INTRO_DURATION], [isMobile ? 0.4 : 0.6, isMobile ? 1.3 : 1.1, isMobile ? 1.3 : 1.1, isMobile ? 1.5 : 1.2], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
   });

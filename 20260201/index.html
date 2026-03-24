@@ -209,7 +209,6 @@
                 if(!o)return;
                 function show(){o.style.opacity='1';o.style.pointerEvents='auto';}
                 function hide(){o.style.opacity='0';o.style.pointerEvents='none';}
-                var bound=false;
                 function bindVideo(v){
                     v.addEventListener('timeupdate',function(){
                         var t=v.currentTime;
@@ -218,6 +217,32 @@
                 }
                 var videos=document.querySelectorAll('.hero-video');
                 videos.forEach(function(v){bindVideo(v);});
+
+                // モバイル自動再生: 強制的に.play()を呼び出し
+                function forcePlay(){
+                    videos.forEach(function(v){
+                        if(v.paused){
+                            v.muted=true;
+                            var p=v.play();
+                            if(p&&p.catch)p.catch(function(){});
+                        }
+                    });
+                }
+                // ページロード時に即再生
+                forcePlay();
+                document.addEventListener('DOMContentLoaded',forcePlay);
+                window.addEventListener('load',forcePlay);
+                // iOS対策: 最初のタッチ/スクロールで再生開始
+                var touched=false;
+                function onFirstInteraction(){
+                    if(touched)return;
+                    touched=true;
+                    forcePlay();
+                    document.removeEventListener('touchstart',onFirstInteraction);
+                    document.removeEventListener('scroll',onFirstInteraction);
+                }
+                document.addEventListener('touchstart',onFirstInteraction,{passive:true});
+                document.addEventListener('scroll',onFirstInteraction,{passive:true});
                 // フォールバック: 動画が再生されない場合6秒後にボタンを表示
                 setTimeout(function(){
                     var anyPlaying=false;
@@ -424,7 +449,7 @@
             </div>
 
             <div class="blog-more">
-                <a href="blog.html" class="btn btn-primary">ブログをもっと見る</a>
+                <a href="/blog" class="btn btn-primary">ブログをもっと見る</a>
             </div>
         </div>
     </section>
@@ -1174,7 +1199,27 @@
                  * ブログデータを取得
                  */
                 async fetchBlogData() {
-                    // window.BLOG_DATA があればそれを使用（インライン化済み）
+                    // まずSupabase APIから最新記事を取得
+                    try {
+                        const res = await fetch('/api/public/posts');
+                        if (res.ok) {
+                            const apiPosts = await res.json();
+                            if (Array.isArray(apiPosts) && apiPosts.length > 0) {
+                                return apiPosts.map(p => ({
+                                    id: p.slug,
+                                    title: p.title,
+                                    date: p.publishedAt || p.createdAt || '',
+                                    excerpt: p.contentText || '',
+                                    image: p.imageUrl || '',
+                                    category: 'スタジオ',
+                                    url: '/blog/' + p.slug
+                                }));
+                            }
+                        }
+                    } catch (e) {
+                        console.warn('API取得失敗、BLOG_DATAにフォールバック:', e);
+                    }
+                    // フォールバック: window.BLOG_DATA
                     if (typeof window !== 'undefined' && window.BLOG_DATA && Array.isArray(window.BLOG_DATA.posts)) {
                         return window.BLOG_DATA.posts;
                     }
@@ -1219,7 +1264,7 @@
                 </div>
                 <div class="blog-content">
                     <h3 class="blog-title">${post.title}</h3>
-                    <p class="blog-excerpt">${post.excerpt}</p>
+                    <p class="blog-excerpt">${(post.excerpt || '').replace(/<[^>]+>/g, '').slice(0, 120)}${(post.excerpt || '').length > 120 ? '...' : ''}</p>
                     <div class="blog-footer">
                         <span class="blog-category">${post.category}</span>
                         <a href="${urlPath}" class="blog-link">続きを読む <i class="fas fa-arrow-right"></i></a>
