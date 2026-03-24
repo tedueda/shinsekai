@@ -1,0 +1,46 @@
+# =============================================
+# studioq.co.jp - Netlify Rewrite Rules
+# ブログシステム（shinsekai-blog）へのプロキシ設定
+# =============================================
+
+# ブログ一覧ページ
+[[redirects]]
+  from = "/blog"
+  to = "https://shinsekai-blog.netlify.app/blog"
+  status = 200
+  force = true
+
+# ブログ記事ページ
+[[redirects]]
+  from = "/blog/*"
+  to = "https://shinsekai-blog.netlify.app/blog/:splat"
+  status = 200
+  force = true
+
+# 管理画面
+[[redirects]]
+  from = "/admin/*"
+  to = "https://shinsekai-blog.netlify.app/admin/:splat"
+  status = 200
+  force = true
+
+# ブログAPI（公開API）
+[[redirects]]
+  from = "/api/public/*"
+  to = "https://shinsekai-blog.netlify.app/api/public/:splat"
+  status = 200
+  force = true
+
+# 管理API
+[[redirects]]
+  from = "/api/admin/*"
+  to = "https://shinsekai-blog.netlify.app/api/admin/:splat"
+  status = 200
+  force = true
+
+# Next.js静的アセット（JS/CSS/画像等）
+[[redirects]]
+  from = "/_next/*"
+  to = "https://shinsekai-blog.netlify.app/_next/:splat"
+  status = 200
+  force = true
