@@ -4,3 +4,12 @@ releases/
 *.zip
 xserver_upload/movie/*.mp4
 Stock Image/imagers.psd
+
+# Node modules
+**/node_modules/
+
+# shinsekai-blog (separate Netlify project)
+shinsekai-blog/
+
+# Local Netlify folder
+.netlify
