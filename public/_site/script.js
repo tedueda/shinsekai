@@ -909,6 +909,15 @@ document.addEventListener('DOMContentLoaded', () => {
         activeOverlay = overlay;
         activeVideoEl = videoElement;
 
+        // AIスクール動画の場合、終了時にPRを表示
+        if (videoUrl.includes('school_ai.mp4') && videoElement.tagName === 'VIDEO') {
+            videoElement.addEventListener('ended', () => {
+                setTimeout(() => {
+                    showAISchoolPR(overlay);
+                }, 2000);
+            });
+        }
+
         // Escキーで閉じる
         
         // クリック直後の即時再生を確実に試みる
@@ -932,6 +941,66 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         };
         document.addEventListener('keydown', escKeyHandler);
+    }
+
+    // AIスクールPRオーバーレイを表示する関数
+    function showAISchoolPR(overlay) {
+        if (!overlay || !overlay.parentNode) return;
+
+        // 既存のPRがあれば削除
+        const existingPR = overlay.querySelector('.ai-school-pr-overlay');
+        if (existingPR) {
+            existingPR.remove();
+        }
+
+        // PRオーバーレイを作成
+        const prOverlay = document.createElement('div');
+        prOverlay.className = 'ai-school-pr-overlay';
+        
+        const prBox = document.createElement('div');
+        prBox.className = 'ai-school-pr-box';
+        
+        prBox.innerHTML = `
+            <div class="ai-school-pr-content">
+                <h3 class="ai-school-pr-title">もっと学びたい方へ！</h3>
+                <p class="ai-school-pr-text">AIクリエイター総合塾で<br>本格的なスキルを身につけませんか？</p>
+                <a href="https://all.studioq.co.jp/home" target="_blank" rel="noopener noreferrer" class="ai-school-pr-button">
+                    AIスクールサイトへ
+                    <i class="fas fa-arrow-right"></i>
+                </a>
+                <button class="ai-school-pr-close" aria-label="閉じる">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        `;
+        
+        prOverlay.appendChild(prBox);
+        overlay.appendChild(prOverlay);
+        
+        // フェードイン表示
+        setTimeout(() => {
+            prOverlay.classList.add('show');
+        }, 100);
+        
+        // 閉じるボタンのイベント
+        const closeBtn = prBox.querySelector('.ai-school-pr-close');
+        closeBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            prOverlay.classList.remove('show');
+            setTimeout(() => {
+                prOverlay.remove();
+            }, 300);
+        });
+        
+        // オーバーレイクリックで閉じる
+        prOverlay.addEventListener('click', (e) => {
+            if (e.target === prOverlay) {
+                prOverlay.classList.remove('show');
+                setTimeout(() => {
+                    prOverlay.remove();
+                }, 300);
+            }
+        });
     }
 });
 
@@ -992,27 +1061,30 @@ document.addEventListener('DOMContentLoaded', () => {
             const formLoadTime = parseInt(timestampField.value);
             const timeDiff = (currentTime - formLoadTime) / 1000; // 秒単位
             
-            if (timeDiff < 3) {
+            if (Number.isFinite(timeDiff) && timeDiff < 1) {
                 e.preventDefault();
                 alert('送信が早すぎます。もう一度お試しください。');
                 return false;
             }
-            
-            // reCAPTCHA v3トークンの取得
-            e.preventDefault();
-            const recaptchaToken = document.getElementById('recaptchaToken');
-            
-            try {
-                const token = await grecaptcha.execute('6LcWv_srAAAAAOC4p5xFd2tQRMZRnRW_AbHoHVTV', {action: 'submit'});
-                recaptchaToken.value = token;
-                
-                // トークン取得後、フォームを送信
-                contactForm.submit();
-            } catch (error) {
-                console.error('reCAPTCHAエラー:', error);
-                alert('送信に失敗しました。もう一度お試しください。');
-                return false;
-            }
         });
     }
+});
+
+// 特長セクションのトグル機能
+document.addEventListener('DOMContentLoaded', () => {
+    const featureTitles = document.querySelectorAll('.feature-title');
+    console.log('特長タイトル数:', featureTitles.length);
+    
+    featureTitles.forEach((title, index) => {
+        title.addEventListener('click', function(e) {
+            console.log('特長' + (index + 1) + 'がクリックされました');
+            const featureItem = this.closest('.feature-item');
+            if (featureItem) {
+                featureItem.classList.toggle('active');
+                console.log('activeクラス:', featureItem.classList.contains('active'));
+            } else {
+                console.error('feature-itemが見つかりません');
+            }
+        });
+    });
 });
