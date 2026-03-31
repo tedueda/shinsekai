@@ -1,6 +1,0 @@
-# ブログシステムへのプロキシ（shinsekai-blog Next.js）
-/blog    https://shinsekai-blog.netlify.app/blog    200!
-/blog/*  https://shinsekai-blog.netlify.app/blog/:splat  200!
-/api/public/* https://shinsekai-blog.netlify.app/api/public/:splat 200!
-/api/admin/* https://shinsekai-blog.netlify.app/api/admin/:splat 200!
-/_next/* https://shinsekai-blog.netlify.app/_next/:splat 200!
