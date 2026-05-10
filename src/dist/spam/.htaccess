@@ -1,0 +1,17 @@
+# スパム対策フォルダのセキュリティ設定
+# ログファイルやデータファイルへの直接アクセスを禁止
+
+# すべてのファイルへのアクセスを拒否
+<FilesMatch ".*">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+# PHPスクリプトは実行可能にする（必要な場合）
+<FilesMatch "\.php$">
+    Order allow,deny
+    Allow from all
+</FilesMatch>
+
+# ディレクトリリスティングを無効化
+Options -Indexes

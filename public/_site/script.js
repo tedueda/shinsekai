@@ -392,7 +392,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     
     // 動画の事前読み込み機能
-    function preloadVideo(videoUrl) {
+    function preloadVideo(videoUrl, preloadType = 'metadata') {
         if (!videoUrl) return null;
         const cacheKey = normalizeUrlForCache(videoUrl);
         if (videoPreloadCache.has(cacheKey)) {
@@ -407,13 +407,18 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log('動画をプリロード中:', videoUrl);
         
         const video = document.createElement('video');
-        video.preload = 'metadata'; // メタデータのみプリロード（帯域節約）
+        video.preload = preloadType; // 'metadata' or 'auto'
         video.muted = true; // プリロード時はミュート
         video.style.display = 'none'; // 非表示
         
-        // ローカル優先でsourceを並べる（ブラウザは最初に再生可能なものを選択）
+        // 外部URLを先に、ローカル候補を後に追加（404待ちによる遅延を回避）
         const localCandidate = toLocalPathIfAvailable(videoUrl);
         const externalUrl = normalizeUrlForCache(videoUrl);
+
+        const sExt = document.createElement('source');
+        sExt.src = externalUrl;
+        sExt.type = 'video/mp4';
+        video.appendChild(sExt);
 
         if (localCandidate) {
             const sLocal = document.createElement('source');
@@ -421,11 +426,6 @@ document.addEventListener('DOMContentLoaded', () => {
             sLocal.type = 'video/mp4';
             video.appendChild(sLocal);
         }
-
-        const sExt = document.createElement('source');
-        sExt.src = externalUrl;
-        sExt.type = 'video/mp4';
-        video.appendChild(sExt);
         
         // WebM形式も追加
         if (externalUrl.toLowerCase().endsWith('.mp4')) {
@@ -469,13 +469,20 @@ document.addEventListener('DOMContentLoaded', () => {
             ...Array.from(document.querySelectorAll('.gallery-video-thumbnail'))
         ];
         
-        allThumbnails.forEach((thumbnail, index) => {
+        // eager指定は最優先で即時プリロード（auto）
+        allThumbnails.filter(t => t.dataset.preload === 'eager').forEach(t => {
+            const url = t.getAttribute('data-video-url');
+            if (url) preloadVideo(url, 'auto');
+        });
+
+        // それ以外は従来どおり遅延（metadata）
+        let delayIndex = 0;
+        allThumbnails.filter(t => t.dataset.preload !== 'eager').forEach((thumbnail) => {
             const videoUrl = thumbnail.getAttribute('data-video-url');
             if (videoUrl) {
-                // 段階的にプリロード（ネットワーク負荷分散）
                 setTimeout(() => {
-                    preloadVideo(videoUrl);
-                }, index * 500); // 500ms間隔でプリロード
+                    preloadVideo(videoUrl, 'metadata');
+                }, delayIndex++ * 500);
             }
         });
 
@@ -496,7 +503,14 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
     
-    // ページ読み込み完了後にプリロード開始
+    // eagerはDOM読み込み後即時、それ以外はwindow load後
+    document.addEventListener('DOMContentLoaded', () => {
+        try {
+            // eagerのみ先に処理
+            const eagerThumb = document.querySelectorAll('[data-preload="eager"][data-video-url]');
+            eagerThumb.forEach(el => preloadVideo(el.getAttribute('data-video-url'), 'auto'));
+        } catch(_) {}
+    });
     if (document.readyState === 'complete') {
         initVideoPreloading();
     } else {
@@ -768,24 +782,21 @@ document.addEventListener('DOMContentLoaded', () => {
                 // 通常の動画ファイルの場合
                 videoElement = document.createElement('video');
                 
-                // キャッシュバスターを削除（ロード時間短縮のため）
-                const primaryUrl = localCandidate || processedUrl;
-                const videoUrlWithCacheBuster = primaryUrl;
-                console.log('処理後のURL:', videoUrlWithCacheBuster);
-                
-                // source要素を使用して動画を読み込む
-                const sourceElement1 = document.createElement('source');
-                sourceElement1.setAttribute('src', videoUrlWithCacheBuster);
-                sourceElement1.setAttribute('type', 'video/mp4');
-                videoElement.appendChild(sourceElement1);
-                // フォールバックとして外部URLも追加
+                // 外部URLを優先し、必要ならローカル候補をフォールバックとして追加
+                const primaryUrl = processedUrl;
+                console.log('処理後のURL:', primaryUrl);
+
+                const sourceElementExt = document.createElement('source');
+                sourceElementExt.setAttribute('src', primaryUrl);
+                sourceElementExt.setAttribute('type', 'video/mp4');
+                videoElement.appendChild(sourceElementExt);
+
                 if (localCandidate) {
-                    const sourceElement2 = document.createElement('source');
-                    sourceElement2.setAttribute('src', processedUrl);
-                    sourceElement2.setAttribute('type', 'video/mp4');
-                    videoElement.appendChild(sourceElement2);
+                    const sourceElementLocal = document.createElement('source');
+                    sourceElementLocal.setAttribute('src', localCandidate);
+                    sourceElementLocal.setAttribute('type', 'video/mp4');
+                    videoElement.appendChild(sourceElementLocal);
                 }
-                
                 // WebM形式のソースも追加（可能であれば）
                 if (processedUrl.toLowerCase().endsWith('.mp4')) {
                     const webmUrl = processedUrl.replace(/\.mp4$/i, '.webm');
@@ -898,6 +909,15 @@ document.addEventListener('DOMContentLoaded', () => {
         activeOverlay = overlay;
         activeVideoEl = videoElement;
 
+        // AIスクール動画の場合、終了時にPRを表示
+        if (videoUrl.includes('school_ai.mp4') && videoElement.tagName === 'VIDEO') {
+            videoElement.addEventListener('ended', () => {
+                setTimeout(() => {
+                    showAISchoolPR(overlay);
+                }, 2000);
+            });
+        }
+
         // Escキーで閉じる
         
         // クリック直後の即時再生を確実に試みる
@@ -921,6 +941,66 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         };
         document.addEventListener('keydown', escKeyHandler);
+    }
+
+    // AIスクールPRオーバーレイを表示する関数
+    function showAISchoolPR(overlay) {
+        if (!overlay || !overlay.parentNode) return;
+
+        // 既存のPRがあれば削除
+        const existingPR = overlay.querySelector('.ai-school-pr-overlay');
+        if (existingPR) {
+            existingPR.remove();
+        }
+
+        // PRオーバーレイを作成
+        const prOverlay = document.createElement('div');
+        prOverlay.className = 'ai-school-pr-overlay';
+        
+        const prBox = document.createElement('div');
+        prBox.className = 'ai-school-pr-box';
+        
+        prBox.innerHTML = `
+            <div class="ai-school-pr-content">
+                <h3 class="ai-school-pr-title">もっと学びたい方へ！</h3>
+                <p class="ai-school-pr-text">AIクリエイター総合塾で<br>本格的なスキルを身につけませんか？</p>
+                <a href="https://all.studioq.co.jp/home" target="_blank" rel="noopener noreferrer" class="ai-school-pr-button">
+                    AIスクールサイトへ
+                    <i class="fas fa-arrow-right"></i>
+                </a>
+                <button class="ai-school-pr-close" aria-label="閉じる">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        `;
+        
+        prOverlay.appendChild(prBox);
+        overlay.appendChild(prOverlay);
+        
+        // フェードイン表示
+        setTimeout(() => {
+            prOverlay.classList.add('show');
+        }, 100);
+        
+        // 閉じるボタンのイベント
+        const closeBtn = prBox.querySelector('.ai-school-pr-close');
+        closeBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            prOverlay.classList.remove('show');
+            setTimeout(() => {
+                prOverlay.remove();
+            }, 300);
+        });
+        
+        // オーバーレイクリックで閉じる
+        prOverlay.addEventListener('click', (e) => {
+            if (e.target === prOverlay) {
+                prOverlay.classList.remove('show');
+                setTimeout(() => {
+                    prOverlay.remove();
+                }, 300);
+            }
+        });
     }
 });
 
@@ -953,3 +1033,58 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // ヒーロービデオの制御は新しいスライドショー制御に統合されました
+
+// スパム対策: フォーム送信時のタイムスタンプと検証
+document.addEventListener('DOMContentLoaded', () => {
+    const contactForm = document.getElementById('contactForm');
+    const timestampField = document.getElementById('formTimestamp');
+    
+    // ページ読み込み時のタイムスタンプを記録（スパム対策）
+    if (timestampField) {
+        timestampField.value = Date.now();
+    }
+    
+    // フォーム送信時の処理
+    if (contactForm) {
+        contactForm.addEventListener('submit', async function(e) {
+            // ハニーポット検証（ボットがwebsiteフィールドに入力していないか確認）
+            const honeypot = document.getElementById('website');
+            if (honeypot && honeypot.value !== '') {
+                // スパムと判断（画面には何も表示せず、送信を中止）
+                e.preventDefault();
+                console.log('スパム検出: ハニーポット');
+                return false;
+            }
+            
+            // タイムスタンプ検証（送信が速すぎないか確認 - 3秒未満はボットの可能性）
+            const currentTime = Date.now();
+            const formLoadTime = parseInt(timestampField.value);
+            const timeDiff = (currentTime - formLoadTime) / 1000; // 秒単位
+            
+            if (Number.isFinite(timeDiff) && timeDiff < 1) {
+                e.preventDefault();
+                alert('送信が早すぎます。もう一度お試しください。');
+                return false;
+            }
+        });
+    }
+});
+
+// 特長セクションのトグル機能
+document.addEventListener('DOMContentLoaded', () => {
+    const featureTitles = document.querySelectorAll('.feature-title');
+    console.log('特長タイトル数:', featureTitles.length);
+    
+    featureTitles.forEach((title, index) => {
+        title.addEventListener('click', function(e) {
+            console.log('特長' + (index + 1) + 'がクリックされました');
+            const featureItem = this.closest('.feature-item');
+            if (featureItem) {
+                featureItem.classList.toggle('active');
+                console.log('activeクラス:', featureItem.classList.contains('active'));
+            } else {
+                console.error('feature-itemが見つかりません');
+            }
+        });
+    });
+});

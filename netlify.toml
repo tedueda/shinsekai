@@ -1,5 +1,13 @@
 # =============================================
-# studioq.co.jp - Netlify Rewrite Rules
+# studioq.co.jp - Netlify Configuration
+# =============================================
+
+[build]
+  publish = "public"
+  command = "echo 'Static site - no build required'"
+
+# =============================================
+# Netlify Rewrite Rules
 # ブログシステム（shinsekai-blog）へのプロキシ設定
 # =============================================
 

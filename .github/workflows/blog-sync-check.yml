@@ -1,0 +1,39 @@
+# GitHub Actions: ブログデータ同期チェック
+# このワークフローは、プッシュ時に自動的にブログデータの同期をチェックします
+
+name: Blog Data Sync Check
+
+on:
+  push:
+    branches: [ main, master ]
+    paths:
+      - 'public/blog/**'
+      - 'src/blog/**'
+      - 'blog-data.json'
+  pull_request:
+    branches: [ main, master ]
+    paths:
+      - 'public/blog/**'
+      - 'src/blog/**'
+      - 'blog-data.json'
+
+jobs:
+  check-sync:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+    
+    - name: Make script executable
+      run: chmod +x scripts/check-blog-data-sync.sh
+    
+    - name: Run blog data sync check
+      run: ./scripts/check-blog-data-sync.sh
+    
+    - name: Check result
+      if: failure()
+      run: |
+        echo "❌ ブログデータの同期エラーが検出されました"
+        echo "詳細はBLOG_MANAGEMENT_GUIDE.mdを参照してください"
+        exit 1
