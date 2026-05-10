@@ -20,4 +20,6 @@ Disallow: /blog-simple.html
 Disallow: /specs-20250903.html
 
 # Sitemap location
+Sitemap: https://studioq.co.jp/sitemap-index.xml
 Sitemap: https://studioq.co.jp/sitemap.xml
+Sitemap: https://studioq.co.jp/blog-sitemap.xml
