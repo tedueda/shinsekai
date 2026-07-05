@@ -910,7 +910,7 @@ document.addEventListener('DOMContentLoaded', () => {
         activeVideoEl = videoElement;
 
         // AIスクール動画の場合、終了時にPRを表示
-        if (videoUrl.includes('school_ai.mp4') && videoElement.tagName === 'VIDEO') {
+        if ((videoUrl.includes('school_ai.mp4') || videoUrl.includes('AIスクール') || videoUrl.includes('AI%E3%82%B9%E3%82%AF%E3%83%BC%E3%83%AB')) && videoElement.tagName === 'VIDEO') {
             videoElement.addEventListener('ended', () => {
                 setTimeout(() => {
                     showAISchoolPR(overlay);
