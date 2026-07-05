@@ -14,3 +14,7 @@ shinsekai-blog/
 # Local Netlify folder
 .netlify
 shinsekai-hero-video/node_modules/
+
+# macOS system files
+.DS_Store
+**/.DS_Store
